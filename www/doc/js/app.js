@@ -13,7 +13,7 @@ var _xdat = {}; //共享变量
     _cfg.host = window.location.host;
     _cfg.homePath = 'http://m.xmgc360.com/start/web/doc/';
 
-    _cfg.startPage = 'doc_list';
+    _cfg.startPage = 'doc_dev';
 
     //历史相关设置
     _cfg.hisOpTypes = {

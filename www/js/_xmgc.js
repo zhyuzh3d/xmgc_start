@@ -33,7 +33,7 @@ if (!_xmgc) {
         },
         'item1': {
             name: '未指定',
-            path: 'start/web/welcome//',
+            path: 'start/web/welcome/undefined.html',
             icon: 'fa fa-bookmark',
         },
         'more': {

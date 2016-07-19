@@ -1,11 +1,34 @@
 <!--顶部导航栏-->
 
 <!--控制器界面部分-->
-<div id='doc_list' ng-controller='doc_list' class='container-fluid'>
+<div id='doc_list' ng-controller='doc_list' class='container-fluid doc_list'>
+    <style>
+        .doc_list{}
+        .doc_list ul li{
+            margin-bottom: 1rem;
+            cursor: pointer;
+            color:#1057b7;
+        }
+        .doc_list ul li:active{
+            margin-bottom: 1rem;
+            cursor: pointer;
+            color:#083e88;
+        }
+
+    </style>
     <br>
-    <h4>文档目录</h4>
+    <h3>文档目录</h3>
     <p style="color:#AAA">这里列出了所有的文档内容的目录</p>
-    <div ng-bind='ctrlrName'>...</div>
+    <br>
+    <ul class="container-fluid clearfix">
+        <li class="panel panel-default" ng-click='goPage("doc_dev")' style='padding:1rem 2rem'>我是开发者如何为项目工场贡献代码？</li>
+        <li class="panel panel-default" ng-click='goPage("doc_dev")' style='padding:1rem 2rem'>全部API接口详细</li>
+        <li class="panel panel-default" ng-click='goPage("doc_usr")' style='padding:1rem 2rem'>我是学生，如何使用项目工场进行学习和实践？</li>
+        <li class="panel panel-default" ng-click='goPage("doc_tchr")' style='padding:1rem 2rem'>我是老师，如何使用项目工场改进教学？</li>
+        <li class="panel panel-default" ng-click='goPage("doc_schl")' style='padding:1rem 2rem'>我是院校，如何使用项目工场改进教学？</li>
+        <li class="panel panel-default" ng-click='goPage("doc_pro")' style='padding:1rem 2rem'>我是专家，如何使用项目工场获取资源和分享经验？</li>
+        <li class="panel panel-default" ng-click='goPage("doc_com")' style='padding:1rem 2rem'>我是企业，如何使用项目工场招募人才和发布需求？</li>
+    </ul>
 </div>
 
 

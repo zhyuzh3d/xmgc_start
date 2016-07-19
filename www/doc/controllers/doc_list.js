@@ -13,6 +13,12 @@
 
         $scope.ctrlrName = ctrlrName;
 
-        console.log('doc_list.js loading...')
+        //换页
+        $scope.goPage=function(pname){
+            $rootScope.changePage(pname);
+        };
+
+        //end
+        console.log(ctrlrName + '.js loading...')
     };
 })();
