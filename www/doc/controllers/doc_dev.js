@@ -44,8 +44,8 @@
                     mainjo.val(mainstr);
                     modulejo.val(modulestr);
                 });
-                maintar.style.height = maintar.scrollHeight + 'px';
-                moduletar.style.height = moduletar.scrollHeight + 'px';
+                maintar.style.height = (maintar.scrollHeight + 4) + 'px';
+                moduletar.style.height = (moduletar.scrollHeight + 4) + 'px';
             });
         };
         $scope.getMainConf();

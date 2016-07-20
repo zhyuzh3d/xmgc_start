@@ -43,7 +43,7 @@
     <!--    目录-->
     <ol class="container-fluid clearfix">
         <li ng-click='goto("intro")'><a href=''>多服务器架构说明</a></li>
-        <li ng-click='goto("mainintro")'><a href=''>主代理服务器设置</a></li>
+        <li ng-click='goto("mainintro")'><a href=''>主服务器设置说明</a></li>
         <li ng-click='goto("moduleguid")'><a href=''>模块服务器设置向导</a></li>
     </ol>
     <br>
@@ -64,7 +64,7 @@
 
         <!--    主代理服务器设置-->
         <li id='mainintro'>
-            <h4>主代理服务器设置</h4>
+            <h4>主服务器设置说明</h4>
             <br>
             <p class="tip">主服务器运行在腾讯云华东地区（上海一区）公网IP：115.159.115.188，内网IP：10.105.240.231，条件允许的情况下，所有模块服务器最终都应运行在该内网区域IP段</p>
             <p>主代理服务器负责接收用户请求并向其他模块服务器进行代理转发，以确保所有模块服务器工作在一个共同域名下，即m.xmgc360.com</p>
