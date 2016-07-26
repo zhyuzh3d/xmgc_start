@@ -18,7 +18,7 @@ if (!_xmgc) {
     var navModules = {
         'welcome': {
             name: '欢迎',
-            path: 'index.html',
+            path: 'start/web/welcome/',
             icon: 'fa fa-home',
         },
         'start': {

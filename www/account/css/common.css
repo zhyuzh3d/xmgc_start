@@ -1,0 +1,9 @@
+body {
+    font-family: simhei;
+    background: #FAFAFA;
+}
+.elips {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
