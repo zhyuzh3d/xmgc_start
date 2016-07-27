@@ -9,6 +9,7 @@ _rotr = new $router();
 
 //访问的请求
 _rotr.get('api', '/api/:apiname', apihandler);
+_rotr.post('api', '/api/:apiname', apihandler);
 
 /*所有api处理函数都收集到这里
 必须是返回promise
@@ -20,9 +21,11 @@ _rotr.apis = {};
 默认tenk的api直接使用
 每个app的独立api格式appname_apiname
 */
-function* apihandler(next) {
+function * apihandler(next) {
     var ctx = this;
     var apinm = ctx.params.apiname;
+
+    console.log('API RECV:', apinm);
 
     //匹配到路由函数,路由函数异常自动返回错误,创建xdat用来传递共享数据
     var apifn = _rotr.apis[apinm];
@@ -31,7 +34,7 @@ function* apihandler(next) {
     };
 
     if (apifn && apifn.constructor == Function) {
-        yield apifn.call(ctx, next).then(null, function (err) {
+        yield apifn.call(ctx, next).then(null, function(err) {
             ctx.body = __newMsg(__errCode.APIERR, [err.message, 'API proc failed:' + apinm + '.']);
             __errhdlr(err);
         });
@@ -44,11 +47,11 @@ function* apihandler(next) {
 
 /*测试接口
  */
-_rotr.apis.test = function () {
+_rotr.apis.test = function() {
     var ctx = this;
 
-    var co = $co(function* () {
-        var resp = __newMsg(1, 'ok', 'Just a api test.')
+    var co = $co(function * () {
+        var resp = __newMsg(1, 'ok', 'Just a api test!')
         ctx.body = resp;
         return ctx;
     });

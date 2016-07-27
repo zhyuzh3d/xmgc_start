@@ -12,6 +12,7 @@ var _xdat = {}; //共享变量
 
     _cfg.host = window.location.host;
     _cfg.homePath = 'http://m.xmgc360.com/start/web/account/';
+    _cfg.apiPrefix = 'http://m.xmgc360.com/start/api/';
 
     _cfg.startPage = 'register';
 
@@ -156,6 +157,28 @@ var _xdat = {}; //共享变量
         return null;
     }
 
+    /*获取地址栏全部参数
+     */
+    _fns.getUrlParams = function(url) {
+        var res;
+        url = (url) ? url : window.location.href;
+        url=String(url);
+        var parts = unescape(url).split('?');
+        if (parts.length > 1) {
+            var arr = parts[1].split('&');
+            var args = {};
+            arr.forEach(function(seg, i) {
+                var segarr = seg.split('=');
+                if (segarr.length > 1) {
+                    args[segarr[0]] = segarr[1];
+                };
+            });
+            res = args;
+        };
+        return res;
+    };
+
+
     /*获取路由页面，用于换页
      */
     _fns.getCtrlr = function(ctrlrname) {
@@ -223,7 +246,7 @@ var _xdat = {}; //共享变量
         return res;
     };
 
-    /*ctrlr获取上层传来的参数，优先使用xdat[ctrlr],其次使用dom的属性
+    /*ctrlr获取上层传来的参数，首先使用地址栏参数，其次使用xdat[ctrlr],最后使用dom的属性
     需要具有scope.ctrlrName属性
     写入到$scope.args
      */
@@ -244,6 +267,12 @@ var _xdat = {}; //共享变量
             var xargs = _xdat[scope.ctrlrName] || {};
             for (var attr in xargs) {
                 scope.args[attr] = xargs[attr];
+            };
+
+            //获取地址栏的参数放到scope.args
+            var uargs = _fns.getUrlParams();
+            for (var attr in uargs) {
+                scope.args[attr] = uargs[attr];
             };
 
             res = scope.args;

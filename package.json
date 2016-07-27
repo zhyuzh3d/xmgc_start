@@ -16,14 +16,15 @@
     "compress": "^0.99.0",
     "cookie": "^0.2.4",
     "crypto": "0.0.3",
-    "koa": "^1.1.2",
+    "debug": "^2.2.0",
+    "koa": "^1.2.1",
     "koa-bodyparser": "^2.2.0",
     "koa-gzip": "^0.1.0",
     "koa-router": "^5.4.0",
     "node-uuid": "^1.4.7",
-    "nodemailer": "^2.3.0",
+    "nodemailer": "^2.5.0",
     "qiniu": "^6.1.11",
-    "redis": "^2.4.2",
+    "redis": "^2.6.2",
     "socket.io": "^1.4.5"
   }
 }

@@ -7,7 +7,7 @@ var _fns = {};
 
 //基础函数扩充---------------------------------------
 /*扩展JSON.safeParse*/
-JSON.safeParse = JSON.sparse = function (str) {
+JSON.safeParse = JSON.sparse = function(str) {
     try {
         return JSON.parse(str);
     } catch (err) {
@@ -17,7 +17,7 @@ JSON.safeParse = JSON.sparse = function (str) {
 
 /*扩展一个方法或对象*/
 function extend(Child, Parent) {
-    var F = function () {};
+    var F = function() {};
     F.prototype = Parent.prototype;
     Child.prototype = new F();
     Child.prototype.constructor = Child;
@@ -27,22 +27,22 @@ function extend(Child, Parent) {
 
 /*重新封装console的函数*/
 var cnslPreStr = '>';
-console.xerr = function () {
+console.xerr = function() {
     var args = arguments;
     console.info(cnslPreStr, 'ERR:');
     console.error.apply(this, args);
 };
-console.xlog = function () {
+console.xlog = function() {
     var args = arguments;
     console.info(cnslPreStr, 'LOG:');
     console.log.apply(this, args);
 };
-console.xinfo = function () {
+console.xinfo = function() {
     var args = arguments;
     console.info(cnslPreStr, 'INFO:');
     console.info.apply(this, args);
 };
-console.xwarn = function () {
+console.xwarn = function() {
     var args = arguments;
     console.info(cnslPreStr, 'WARN:');
     console.xwarn.apply(this, args);
@@ -130,6 +130,87 @@ function __newMsg(code, text, data) {
 };
 
 
+//重要函数------------------------------------
+/*服务端向其他地址发起http请求的promise
+成功执行resolvefn({headers:{...},body:'...'})
+options应包含所有必需参数如hostname，port,method等等,例如
+{
+    hostname: 'rsf.qbox.me',
+    port: 80,
+    path: optpath,
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': '',
+    },
+};
+ */
+_fns.httpReqPrms = httpReqPrms;
+
+function httpReqPrms(options, bodydata) {
+    var prms = new Promise(function(resolvefn, rejectfn) {
+        var req = $http.request(options, (res) => {
+            if (res.statusCode != 200) {
+                rejectfn(new Error('Target server return err:' + res.statusCode));
+            } else {
+                res.setEncoding('utf8');
+                var dat = {
+                    headers: res.headers,
+                    body: '',
+                };
+                res.on('data', (dt) => {
+                    dat.body += dt;
+                });
+                res.on('end', () => {
+                    resolvefn(dat);
+                })
+            };
+        });
+
+        req.on('error', (e) => {
+            rejectfn(new Error('Request failed:' + e.message));
+        });
+
+        if (bodydata) {
+            req.write(bodydata);
+        };
+
+        req.end();
+    });
+
+    return prms;
+};
+
+/*向指定目标发送一封邮件
+默认以_xcfg.serMail.addr为发送邮箱
+*/
+var mailTransPort = $mailer.createTransport({
+    host: _xcfg.serMail.host,
+    port: _xcfg.serMail.port,
+    auth: {
+        user: _xcfg.serMail.addr,
+        pass: _xcfg.serMail.pw,
+    },
+});
+
+/*可以使用其它传输器，默认为serMail
+ */
+_fns.sendMail = sendMail;
+
+function sendMail(tarmail, tit, cont) {
+    var prms = new Promise(function(resolvefn, rejectfn, transport) {
+        if (!transport) transport = mailTransPort;
+        transport.sendMail({
+            from: 'jscodepie servicegroup<' + _xcfg.serMail.addr + '>',
+            to: tarmail,
+            subject: tit,
+            html: cont
+        }, function(err, res) {
+            (err) ? rejectfn(err) : resolvefn(res);
+        });
+    });
+    return prms;
+};
 
 
 

@@ -14,16 +14,23 @@ var $router = global.$router = require('koa-router');
 var $bodyParser = global.$bodyParser = require('koa-bodyparser');
 var $cookie = global.$cookie = require('cookie');
 var $crypto = global.$crypto = require('crypto');
+var $mailer = global.$mailer = require('nodemailer');
+var $redis = global.$redis = require('redis');
+//var $uuid = global.$uuid = require('node-uuid');
+//var $gzip = global.$gzip = require('koa-gzip');
+//var $sktio = global.$sktio = require('socket.io');
 //var $qiniu = global.$qiniu = require('qiniu');
 
 //自定义库引入
 global._ctnu = require('./my_modules/ctnu.js');
 global._cfg = require('./my_modules/cfg.js');
-//global._xcfg = require('../../xcfg.js');
+global._xcfg = require('../xcfg.js');
 global._fns = require('./my_modules/fns.js');
 global._mdwr = require('./my_modules/mdwr.js');
 global._rotr = require('./my_modules/rotr.js');
+global._rds = require('./my_modules/rds.js');
 
+global._account = require('./my_modules/account.js');
 //global._qn = require('./mymodules/qn.js');
 
 //服务器对象
@@ -62,3 +69,14 @@ koaSvr.use(_mdwr);
 /*http请求的路由控制
  */
 koaSvr.use(_rotr.routes());
+
+//test
+
+//var s='788777';
+//console.log(_cfg.regx.phoneCode.test(s));
+
+
+
+
+
+//

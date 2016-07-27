@@ -9,9 +9,9 @@ if (!_xmgc) {
     var _xmgc = {};
 };
 
-(function () {
+(function() {
     //顶部导航
-    var botbar = $('<div class="navbar navbar-default navbar-fixed-bottom nav nav-tabs" style="height:6rem"></div>');
+    var botbar = $('<div id="navbar" class="navbar navbar-default navbar-fixed-bottom nav nav-tabs" style="height:6rem;z-index:10"></div>');
     var botbtns = botbar.btns = $('<div class="nav nav-pills" style="height:100%"></div>').appendTo(botbar);
 
     //添加底部模块导航按钮
@@ -45,7 +45,7 @@ if (!_xmgc) {
 
     for (var attr in navModules) {
         var mod = navModules[attr];
-        botbtns[attr] = $('<li role="presentation" style="width:20%;text-align:center;margin:0;border-right:1px solid #DDD"><a style="height:6rem;border-radius:0" href="http://m.xmgc360.com/' + mod.path + '">' + '<div class="' + mod.icon + '" style="font-size:3rem"></div><div style="font-size:1rem">' + mod.name + '</div></a></li>').appendTo(botbtns);
+        botbtns[attr] = $('<li role="presentation" style="width:20%;text-align:center;margin:0;border-right:1px solid #DDD;"><a style="height:6rem;border-radius:0" href="http://m.xmgc360.com/' + mod.path + '">' + '<div class="' + mod.icon + '" style="font-size:3rem"></div><div style="font-size:1rem">' + mod.name + '</div></a></li>').appendTo(botbtns);
 
         //从当前url判断是否激活
         var onact = false;
@@ -79,8 +79,9 @@ if (!_xmgc) {
      * @method addBottomNavBar
      * @return {jqueryObj} _xmgc.bottomNavBar
      */
-    _xmgc.addBottomNavBar = function () {
+    _xmgc.addBottomNavBar = function() {
         $('body').append(_xmgc.bottomNavBar);
+
         return _xmgc.bottomNavBar;
     };
 
@@ -92,7 +93,7 @@ if (!_xmgc) {
      * @param {Object} str='top/bottom/both'
      * @return {Array} description
      */
-    _xmgc.addNavBar = function (str) {
+    _xmgc.addNavBar = function(str) {
         var res = [];
         if (str == 'bootom' || str == 'bot' || str == 'both') {
             res.push(_xmgc.addBottomNavBar());
@@ -104,7 +105,7 @@ if (!_xmgc) {
     if (_xmgc.usrNavBar == undefined) {
         _xmgc.usrNavBar = 'both';
     };
-    $(document).ready(function () {
+    $(document).ready(function() {
         _xmgc.addNavBar(_xmgc.usrNavBar);
     });
 })();

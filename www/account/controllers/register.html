@@ -1,16 +1,33 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 <!--控制器界面部分-->
-<div id='register' ng-controller='register' class='container-fluid register' layout="column" layout-padding ng-cloak>
+<div id='register' ng-controller='register' class='container-fluid register'>
     <style>
         .register label {
-            font-size: 1.8rem
+            font-size: 2rem
+        }
+        .register input {
+            font-size: 2rem
+        }
+        .register md-input-container {
+            margin-top: 3rem
+        }
+        /*覆盖toast位置*/
+        md-toast {
+            left: 0;
+            right: 0;
+            width: 80%;
+            margin-left: 10%;
+            margin-bottom: 7rem;
+            margin-top: 1rem;
+            border-radius: 0;
+            padding: 0;
+            position: fixed;
         }
     </style>
-    <div class="demo-md-panel md-padding">
+    <div class="demo-md-panel md-padding col-xs-12 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
         <h2>注册新用户</h2>
+        <br>
         <md-content class="md-no-momentum">
-            <br>
-            <md-input-container class="md-block" flex-gt-sm>
+            <md-input-container class="md-block" flex-gt-sm style='margin-top:2rem'>
                 <md-icon>
                     <i class="fa fa-phone fa-lg"></i>
                 </md-icon>
@@ -20,46 +37,37 @@
                 <div ng-messages="userForm.phone.$error" ng-hide="showHints">
                     <div ng-message="pattern">请输入真实的电话号码</div>
                 </div>
-                <md-button class="md-raised md-primary pull-right">发送验证码</md-button>
+                <md-button class="md-raised md-primary pull-right" ng-click='getPhoneRegCode()'>发送验证码</md-button>
             </md-input-container>
             <md-input-container class="md-block" flex-gt-sm>
                 <md-icon>
                     <i class="fa fa-key fa-lg"></i>
                 </md-icon>
                 <label>验证码</label>
-                <input name="phone" ng-model="user.phone" ng-pattern="/^.{6,18}$/" />
+                <input name="phone" ng-model="user.phoneCode" ng-pattern="/^.{6,18}$/" />
                 <div class="hint" ng-show="showHints">验证码，必填</div>
                 <div ng-messages="userForm.phone.$error" ng-hide="showHints">
                     <div ng-message="pattern">请输入六位验证码</div>
                 </div>
             </md-input-container>
-            <br>
             <md-input-container class="md-block" flex-gt-sm>
                 <md-icon>
                     <i class="fa fa-lock fa-lg"></i>
                 </md-icon>
                 <label>密码</label>
-                <input name="phone" type='password' ng-model="user.phone" ng-pattern="/^.{6,18}$/" />
+                <input name="phone" type='password' ng-model="user.pw" ng-pattern="/^.{6,18}$/" />
                 <div class="hint" ng-show="showHints">密码，必填</div>
                 <div ng-messages="userForm.phone.$error" ng-hide="showHints">
                     <div ng-message="pattern">6~18位密码</div>
                 </div>
             </md-input-container>
-            <br>
-            <div md-theme="altTheme">
-                <md-button class="md-raised md-accent btn-lg col-xs-6">确认提交</md-button>
-                <md-button class="md-raised btn-lg">取消</md-button>
+            <div md-theme="altTheme" style="margin-top:5rem">
+                <md-button class="md-raised md-accent btn-lg col-xs-6" ng-click='regByPhone()'>确认提交</md-button>
+                <md-button class="md-raised btn-lg" ng-click='cancel()'>取消</md-button>
             </div>
         </md-content>
     </div>
-
-
-
-
-
-
 </div>
-
 
 <!--加载外部控制器js文件-->
 <script>
