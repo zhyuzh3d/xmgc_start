@@ -1,17 +1,75 @@
 <!--控制器界面部分-->
-<div id='profile' ng-controller='profile' class='container-fluid profile' layout="column" layout-padding ng-cloak>
+<div id='profile' ng-controller='profile' class='container-fluid profile'>
     <style>
-
+        .profile label {
+            font-size: 2rem
+        }
+        .profile input {
+            font-size: 2rem
+        }
+        .profile md-input-container {
+            margin-top: 3rem
+        }
+        /*覆盖toast位置*/
+        md-toast {
+            left: 0;
+            right: 0;
+            width: 80%;
+            margin-left: 10%;
+            margin-bottom: 7rem;
+            margin-top: 1rem;
+            border-radius: 0;
+            padding: 0;
+            position: fixed;
+        }
     </style>
     <div class="demo-md-panel md-padding col-xs-12 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
-        <h2>个人资料</h2>
-        <br>
-
+        <div style='margin-top:3rem;margin-bottom:2rem'>
+            <span class='h2' style="margin-top:4rem">个人设置</span>
+            <md-button md-no-ink class="md-primary" ng-click='loginOut()'>退出登录</md-button>
+        </div>
+        <form name="userForm">
+            <md-content class="md-no-momentum">
+                <md-input-content class="md-block" flex-gt-sm style='margin-top:2rem'>
+                    <md-icon ng-style='{"color":user.color}'>
+                        <i class="fa fa-phone fa-lg"></i>
+                    </md-icon>
+                    <label ng-bind='user.phone'>...</label>
+                </md-input-content>
+                <md-input-container class="md-block" flex-gt-sm style='margin-top:3rem'>
+                    <md-icon ng-style='{"color":user.color}'>
+                        <i class="fa fa-user fa-lg"></i>
+                    </md-icon>
+                    <label>昵称</label>
+                    <input name="nick" ng-model="user.nick" ng-pattern="/^[a-zA-Z\u0391-\uFFE5]+[0-9a-zA-Z\u0391-\uFFE5\.]{2,17}$/" />
+                    <div ng-messages="usrForm.nick.$error">
+                        <div ng-if="userForm.nick.$error.pattern">中文,数字,字母都可以,3~18位非数字开头</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm style='margin-top:3rem'>
+                    <md-icon ng-style='{"color":user.color}'>
+                        <i class="fa fa-paint-brush fa-lg"></i>
+                    </md-icon>
+                    <label>颜色</label>
+                    <input name="color" ng-model="user.color" ng-pattern="/^#[A-F0-9]{6}$/" />
+                    <div class="hint">十六进制，如#FF0000</div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm style='margin-top:3rem'>
+                    <md-icon ng-style='{"color":user.color}'>
+                        <i ng-class="{true: 'fa '+user.icon+' fa-lg', false: 'fa fa-ban fa-lg'}[user.icon!=undefined]" class=""></i>
+                    </md-icon>
+                    <label>图标</label>
+                    <input name="icon" ng-model="user.icon" ng-pattern="/^fa-.*$/" />
+                    <div class="hint">fontawesome图标,如fa-leaf,其他将不显示</div>
+                </md-input-container>
+                <div style="margin-top:3rem">
+                    <md-button class="md-raised md-accent btn-lg col-xs-6" ng-click='saveProfile()'>保存</md-button>
+                    <md-button class="md-raised md-default btn-lg" ng-click='cancel()'>取消</md-button>
+                </div>
+            </md-content>
+        </form>
     </div>
-
-
 </div>
-
 
 <!--加载外部控制器js文件-->
 <script>

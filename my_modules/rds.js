@@ -16,14 +16,24 @@ _rds.k = {
     //用户手机号码到用户id映射
     map_uphone2uid: '_map:usr.phone:usr.id',
 
+    //用户ukey到用户id的映射
+    map_ukey2uid: '_map:usr.ukey:usr.id',
+
+
     //用户
     usr: function(id) {
         return 'usr-' + id;
     },
 
+
+
     //向用户发送的手机注册验证码
     tmp_phoneRegCode: function(phone) {
         return '_tmp:phoneRegCode-' + phone;
+    },
+    //向用户发送的手机注册验证码
+    tmp_phoneRstCode: function(phone) {
+        return '_tmp:phoneRstCode-' + phone;
     },
 };
 

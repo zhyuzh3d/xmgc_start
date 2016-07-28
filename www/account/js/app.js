@@ -12,7 +12,7 @@ var _xdat = {}; //共享变量
     _cfg.homePath = 'http://m.xmgc360.com/start/web/account/';
     _cfg.apiPrefix = 'http://m.xmgc360.com/start/api/';
 
-    _cfg.startPage = 'register';
+    _cfg.startPage = 'profile';
 
 
     //自动载入库文件
@@ -95,7 +95,9 @@ var _xdat = {}; //共享变量
 
             //material design theme主题颜色定制
             $mdThemingProvider.theme('default')
-                .primaryPalette('green')
+                .primaryPalette('teal', {
+                    'default': 'A700'
+                })
                 .accentPalette('pink', {
                     'default': '400'
                 })
@@ -159,7 +161,7 @@ var _xdat = {}; //共享变量
     _fns.getUrlParams = function(url) {
         var res;
         url = (url) ? url : window.location.href;
-        url=String(url);
+        url = String(url);
         var parts = unescape(url).split('?');
         if (parts.length > 1) {
             var arr = parts[1].split('&');

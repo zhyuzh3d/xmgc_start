@@ -16,6 +16,7 @@ var $cookie = global.$cookie = require('cookie');
 var $crypto = global.$crypto = require('crypto');
 var $mailer = global.$mailer = require('nodemailer');
 var $redis = global.$redis = require('redis');
+var $uuid = global.$uuid = require('node-uuid');
 //var $uuid = global.$uuid = require('node-uuid');
 //var $gzip = global.$gzip = require('koa-gzip');
 //var $sktio = global.$sktio = require('socket.io');
@@ -75,7 +76,7 @@ koaSvr.use(_rotr.routes());
 //var s='788777';
 //console.log(_cfg.regx.phoneCode.test(s));
 
-
+//console.log('>>>toUTCString',new Date((new Date()).getTime() + _cfg.dur.browserUkey).toUTCString());
 
 
 
