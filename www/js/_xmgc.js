@@ -1,4 +1,4 @@
-/*每个模块都应该引入的js脚本
+/*每个模块都应该引入的js脚本,需要jquery和bootstrap支持
 自动创建顶部和底部元件*/
 console.log('start/_xmgc.js:loading...');
 if (!_xmgc) {
@@ -11,7 +11,7 @@ if (!_xmgc) {
 
 (function() {
     //顶部导航
-    var botbar = $('<div id="navbar" class="navbar navbar-default navbar-fixed-bottom nav nav-tabs" style="height:6rem;z-index:10"></div>');
+    var botbar = $('<div id="navbar" class="navbar navbar-default navbar-fixed-bottom nav nav-tabs xmgcNavBar" style="height:6rem;z-index:10"></div>');
     var botbtns = botbar.btns = $('<div class="nav nav-pills" style="height:100%"></div>').appendTo(botbar);
 
     //添加底部模块导航按钮
@@ -66,7 +66,7 @@ if (!_xmgc) {
 
 
     /**
-     * 顶部导航栏
+     * 底部导航栏
      * @private
      * @property bottomNavBar
      */
@@ -74,17 +74,35 @@ if (!_xmgc) {
 
 
     /**
-     * 添加顶部导航栏
+     * 添加底部导航栏
      * @private
      * @method addBottomNavBar
      * @return {jqueryObj} _xmgc.bottomNavBar
      */
     _xmgc.addBottomNavBar = function() {
         $('body').append(_xmgc.bottomNavBar);
-
         return _xmgc.bottomNavBar;
     };
 
+
+
+    /**
+     * 添加色彩样式
+     * @private
+     * @method addNavBarStyle
+     * @param {string}  clr 颜色字符串
+     * @return {jqueryObj} _xmgc.bottomNavBar
+     */
+    _xmgc.addNavBarStyle = function(clr) {
+        if (!clr) clr = '#00bfa5';
+        var stl = $('<style></style');
+        stl.append('.nav-pills li a{color: ' + clr + ';text-decoration: none;}');
+        stl.append('.xmgcNavBar .nav-pills li.active a{color: #FFF;background-color: ' + clr + ';}');
+        stl.append('.xmgcNavBar .nav-pills li.active a:hover{color: #FFF;background-color: ' + clr + ';}');
+        _xmgc.navBarStyle = stl;
+        $('body').append(_xmgc.navBarStyle);
+        return _xmgc.navBarStyle;
+    };
 
     /**
      * 添加导航栏，可选顶部底部或全部
@@ -95,6 +113,7 @@ if (!_xmgc) {
      */
     _xmgc.addNavBar = function(str) {
         var res = [];
+        res.push(_xmgc.addNavBarStyle());
         if (str == 'bootom' || str == 'bot' || str == 'both') {
             res.push(_xmgc.addBottomNavBar());
         };
