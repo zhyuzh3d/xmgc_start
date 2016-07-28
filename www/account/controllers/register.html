@@ -4,13 +4,16 @@
         .register label {
             font-size: 2rem
         }
+
         .register input {
             font-size: 2rem
         }
+
         .register md-input-container {
             margin-top: 3rem
         }
         /*覆盖toast位置*/
+
         md-toast {
             left: 0;
             right: 0;
@@ -24,48 +27,48 @@
         }
     </style>
     <div class="demo-md-panel md-padding col-xs-12 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
-        <h2>注册新用户</h2>
+        <h2 style="margin-top:4rem">注册新用户</h2>
         <br>
-        <md-content class="md-no-momentum">
-            <md-input-container class="md-block" flex-gt-sm style='margin-top:2rem'>
-                <md-icon>
-                    <i class="fa fa-phone fa-lg"></i>
-                </md-icon>
-                <label>电话号码</label>
-                <input name="phone" ng-model="user.phone" ng-pattern="/^1+\d{6,10}$/" />
-                <div class="hint" ng-show="showHints">手机号码，必填</div>
-                <div ng-messages="userForm.phone.$error" ng-hide="showHints">
-                    <div ng-message="pattern">请输入真实的电话号码</div>
+        <form name="userForm">
+            <md-content class="md-no-momentum">
+                <md-input-container class="md-block" flex-gt-sm style='margin-top:2rem'>
+                    <md-icon>
+                        <i class="fa fa-phone fa-lg"></i>
+                    </md-icon>
+                    <label>电话号码</label>
+                    <input name="phone" ng-model="user.phone" ng-pattern="/^1+\d{10}$/" />
+                    <div ng-messages="usrForm.phone.$error">
+                        <div ng-if="userForm.phone.$error.pattern">必须使用真实号码，请确认输入正确</div>
+                    </div>
+                    <md-button class="md-raised md-primary pull-right" ng-click='getPhoneRegCode()' ng-show='!waiting'>发送验证码</md-button>
+                    <md-button class="md-raised md-primary pull-right"  ng-show='waiting' ng-disabled='true'>重新发送({{waiting}})</md-button>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <md-icon>
+                        <i class="fa fa-key fa-lg"></i>
+                    </md-icon>
+                    <label>验证码</label>
+                    <input name="phoneCode" ng-model="user.phoneCode" ng-pattern="/^\d{6}$/" />
+                    <div ng-messages="usrForm.phoneCode.$error">
+                        <div ng-if="userForm.phoneCode.$error.pattern">六位数字，例如 898878</div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <md-icon>
+                        <i class="fa fa-lock fa-lg"></i>
+                    </md-icon>
+                    <label>密码</label>
+                    <input name="pw" type='password' ng-model="user.pw" ng-pattern="/^.{6,18}$/" />
+                    <div ng-messages="usrForm.pw.$error">
+                        <div ng-if="userForm.pw.$error.pattern">6~18位任意数字</div>
+                    </div>
+                </md-input-container>
+                <div md-theme="altTheme" style="margin-top:5rem">
+                    <md-button class="md-raised md-accent btn-lg col-xs-6" ng-click='regByPhone()'>确认提交</md-button>
+                    <md-button class="md-raised md-default btn-lg" ng-click='cancel()'>取消</md-button>
                 </div>
-                <md-button class="md-raised md-primary pull-right" ng-click='getPhoneRegCode()'>发送验证码</md-button>
-            </md-input-container>
-            <md-input-container class="md-block" flex-gt-sm>
-                <md-icon>
-                    <i class="fa fa-key fa-lg"></i>
-                </md-icon>
-                <label>验证码</label>
-                <input name="phone" ng-model="user.phoneCode" ng-pattern="/^.{6,18}$/" />
-                <div class="hint" ng-show="showHints">验证码，必填</div>
-                <div ng-messages="userForm.phone.$error" ng-hide="showHints">
-                    <div ng-message="pattern">请输入六位验证码</div>
-                </div>
-            </md-input-container>
-            <md-input-container class="md-block" flex-gt-sm>
-                <md-icon>
-                    <i class="fa fa-lock fa-lg"></i>
-                </md-icon>
-                <label>密码</label>
-                <input name="phone" type='password' ng-model="user.pw" ng-pattern="/^.{6,18}$/" />
-                <div class="hint" ng-show="showHints">密码，必填</div>
-                <div ng-messages="userForm.phone.$error" ng-hide="showHints">
-                    <div ng-message="pattern">6~18位密码</div>
-                </div>
-            </md-input-container>
-            <div md-theme="altTheme" style="margin-top:5rem">
-                <md-button class="md-raised md-accent btn-lg col-xs-6" ng-click='regByPhone()'>确认提交</md-button>
-                <md-button class="md-raised btn-lg" ng-click='cancel()'>取消</md-button>
-            </div>
-        </md-content>
+            </md-content>
+        </form>
     </div>
 </div>
 

@@ -1,5 +1,5 @@
 //顶部导航控制器
-(function() {
+(function () {
     var ctrlrName = 'register';
 
     _app.controller(ctrlrName, fn);
@@ -17,39 +17,65 @@
         _fns.addLib('toastr');
 
         //换页
-        $scope.goPage = function(pname) {
+        $scope.goPage = function (pname) {
             $rootScope.changePage(pname);
         };
 
+        $scope.waiting = 0;
+        var waitid = 0;
+        $scope.waitCount = 300;
+
         //获取验证码
-        $scope.getPhoneRegCode = function() {
+        $scope.getPhoneRegCode = function () {
             var api = _cfg.apiPrefix + 'getPhoneRegCode';
             var dat = {
                 phone: $scope.user.phone
             };
-            console.log('POST', api, dat);
-            $.post(api, dat, function(res) {
-                console.log(api, res);
+
+
+            $.post(api, dat, function (res) {
+                console.log('POST', api, dat, res);
+                if (res.code == 1) {
+                    //启动倒计时
+                    $scope.waiting = 30;
+                    clearInterval(waitid);
+                    waitid = setInterval(function () {
+                        $scope.$apply(function () {
+                            $scope.waiting--;
+                        })
+                        if ($scope.waiting <= 0) {
+                            clearInterval(waitid);
+                        };
+                    }, 1000);
+                } else {
+                    //提示错误
+                    $mdToast.show(
+                        $mdToast.simple()
+                        .textContent('发送失败:' + res.text)
+                        .position('top right')
+                        .hideDelay(3000)
+                    );
+                }
             });
         };
 
         //注册账号
-        $scope.regByPhone = function() {
+        $scope.regByPhone = function () {
             var api = _cfg.apiPrefix + 'regByPhone';
             var dat = {
                 phone: $scope.user.phone,
                 phoneCode: $scope.user.phoneCode,
                 pw: md5($scope.user.pw),
             };
-            console.log('POST', api, dat);
-            $.post(api, dat, function(res) {
+            $.post(api, dat, function (res) {
+                console.log('POST', api, dat, res);
                 if (res.code == 1) {
                     $scope.goPage('profile');
                 } else {
                     $mdToast.show(
                         $mdToast.simple()
                         .textContent('注册失败:' + res.text)
-                        .position(pinTo)
+                        .position('top right')
                         .hideDelay(3000)
                     );
                 }
@@ -58,14 +84,15 @@
 
 
         //取消注册
-        $scope.cancel = function() {
-            $mdToast.show(
-                $mdToast.simple()
-                .textContent('注册失败')
-                .position('top right')
-                .hideDelay(1000000)
-            );
+        $scope.cancel = function () {
+            window.location.href = document.referrer;
         };
+
+        //测试
+        $scope.print = function (str) {
+            console.log(str);
+        };
+        $scope.showHints = false;
 
         //end
         console.log(ctrlrName + '.js loading...')

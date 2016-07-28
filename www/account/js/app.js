@@ -2,8 +2,6 @@
 
 var _app = {}; //最高全局变量，angular
 var _cfg = {}; //最高全局变量，功用设置
-var _wdapp = new Wilddog("https://teamtask.wilddogio.com"); //野狗app数据库
-
 var _fns = {}; //最高全局变量，公用函数
 var _xdat = {}; //共享变量
 
@@ -85,7 +83,6 @@ var _xdat = {}; //共享变量
         'app.filters',
         'app.directives',
         'app.controllers',
-        'ui.bootstrap',
         'ngMaterial',
     ]).config(
         function angularConfig($locationProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $mdThemingProvider) {
