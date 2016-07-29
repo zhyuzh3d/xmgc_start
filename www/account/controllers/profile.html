@@ -51,7 +51,7 @@
                         <i class="fa fa-paint-brush fa-lg"></i>
                     </md-icon>
                     <label>颜色</label>
-                    <input name="color" ng-model="user.color" ng-pattern="/^#[A-F0-9]{6}$/" />
+                    <input name="color" ng-model="user.color" ng-pattern="/^#[a-fA-F0-9]{6}$/" />
                     <div class="hint">十六进制，如#FF0000</div>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm style='margin-top:3rem'>
@@ -59,10 +59,12 @@
                         <i ng-class="{true: 'fa '+user.icon+' fa-lg', false: 'fa fa-ban fa-lg'}[user.icon!=undefined]" class=""></i>
                     </md-icon>
                     <label>图标</label>
-                    <input name="icon" ng-model="user.icon" ng-pattern="/^fa-.*$/" />
+                    <input name="icon" ng-model="user.icon" ng-pattern="/^fa-[\w-]{1,32}$/" />
                     <div class="hint">fontawesome图标,如fa-leaf,其他将不显示</div>
                 </md-input-container>
-                <div style="margin-top:3rem">
+                <md-button md-no-ink class="md-primary" ng-click='goPage("changePw")'>修改密码</md-button>
+
+                <div style="margin-top:2rem">
                     <md-button class="md-raised md-accent btn-lg col-xs-6" ng-click='saveProfile()'>保存</md-button>
                     <md-button class="md-raised md-default btn-lg" ng-click='cancel()'>取消</md-button>
                 </div>

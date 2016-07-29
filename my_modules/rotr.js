@@ -45,14 +45,18 @@ function * apihandler(next) {
     yield next;
 };
 
-/*测试接口
+/*测试接口,返回请求的数据
  */
 _rotr.apis.test = function() {
     var ctx = this;
-
     var co = $co(function * () {
-        var resp = __newMsg(1, 'ok', 'Just a api test!')
-        ctx.body = resp;
+
+        var resdat = {
+            query: ctx.query.nick,
+            body: request.body;
+        };
+
+        ctx.body = __newMsg(1, 'ok', resdat);
         return ctx;
     });
     return co;

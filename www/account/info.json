@@ -1,0 +1,112 @@
+{
+    "name": "account",
+    "path": "start/web/account/",
+    "author": "zhyuzh",
+    "time": "2016-07-29 16:47",
+    "pages": [{
+        "name": "register",
+        "desc": "新用户注册页面",
+        "url": "?page=register"
+    }, {
+        "name": "login",
+        "desc": "用户登陆页面",
+        "url": "?page=login"
+    },{
+        "name": "changePw",
+        "desc": "用户修改密码页面",
+        "url": "?page=changePw"
+    },{
+        "name": "profile",
+        "desc": "用户修改自己信息的页面",
+        "url": "?page=profile"
+    }],
+    "apis": [{
+        "name": "getMyInfo",
+        "desc": "获取当前登录用户的基本信息，包括id,phone,nick等",
+        "method": ["POST", "GET"],
+        "reqDat": "undefined",
+        "respDat": {
+            "id": "整数ID",
+            "phone": "手机号11位数字",
+            "nick": "昵称3~18个字符，非数字开头",
+            "color": "用户自定义颜色，16进制颜色，如#FF00FF",
+            "icon": "用户图标，fa-开头的字符串如fa-leaf"
+        },
+        "tip": "可以用这个接口来检测当前用户是否登陆",
+        "author": "zhyuzh"
+    }, {
+        "name": "loginByPhone",
+        "desc": "使用手机号和密码登陆",
+        "method": ["POST", "GET"],
+        "reqDat": {
+            "phone": "手机号码11位数字",
+            "pw": "密码32位,是前端MD5加密后的字符"
+        },
+        "respDat": {
+            "id": "整数ID",
+            "phone": "手机号11位数字",
+            "nick": "昵称3~18个字符，非数字开头",
+            "color": "用户自定义颜色，16进制颜色，如#FF00FF",
+            "icon": "用户图标，fa-开头的字符串如fa-leaf"
+        },
+        "tip": "返回标准的用户基本信息对象,登陆成功用户的信息写在浏览器端，1年后过期",
+        "author": "zhyuzh"
+    }, {
+        "name": "loginOut",
+        "desc": "已经登陆的用户退出，清除浏览器端的登录信息",
+        "method": ["POST", "GET"],
+        "reqDat": "undefined",
+        "respDat": "undefined",
+        "tip": "这个登出并不影响其他已经登陆的设备",
+        "author": "zhyuzh"
+    }, {
+        "name": "regByPhone",
+        "desc": "使用手机号注册新账户，通过手机验证码确认",
+        "method": ["POST", "GET"],
+        "reqDat": {
+            "phone": "手机号码11位数字",
+            "phoneCode": "用户短信接收到的6位数字",
+            "pw": "密码32位,是前端MD5加密后的字符"
+        },
+        "respDat": "undefined",
+        "author": "zhyuzh"
+    }, {
+        "name": "getPhoneRegCode",
+        "desc": "向指定手机发送6位数字注册验证码，仅限未注册手机，限制每5分钟发一次",
+        "method": ["POST", "GET"],
+        "reqDat": {
+            "phone": "手机号码11位数字"
+        },
+        "tip": "用来实现用户登录验证",
+        "author": "zhyuzh"
+    }, {
+        "name": "getPhoneRstCode",
+        "desc": "向指定手机发送6位数字修改密码的验证码，仅限已经注册的手机，限制每5分钟发一次",
+        "method": ["POST", "GET"],
+        "reqDat": {
+            "phone": "手机号码11位数字"
+        },
+        "tip": "用来实现用户修改密码的验证"
+    }, {
+        "name": "rstPwByPhone",
+        "desc": "通过手机验证码修改密码",
+        "method": ["POST", "GET"],
+        "reqDat": {
+            "phone": "手机号码11位数字",
+            "pw": "新的密码",
+            "phoneCode": "手机短信验证码6位数字"
+        },
+        "tip": "忘记密码后的弥补措施"
+    }, {
+        "name": "saveProfile",
+        "desc": "保存用户资料",
+        "method": ["POST", "GET"],
+        "reqDat": {
+            "nick": "用户自定义昵称，3~18位非数字开头",
+            "color": "用户的颜色，16进制如#FF0000",
+            "icon": "用户的icon，fa-开头的字符"
+        },
+        "respDat": "undefined",
+        "tip": "以后可能增加更多数据字段"
+    }]
+}

@@ -133,17 +133,17 @@ _rotr.apis.saveProfile = function() {
 
         //仅保存限定的信息
         var nick = ctx.query.nick || ctx.request.body.nick;
-        if (nick) {
+        if (nick && _cfg.regx.nick.test(nick)) {
             mu.hset(usrkey, 'nick', nick);
         };
 
         var color = ctx.query.color || ctx.request.body.color;
-        if (nick) {
+        if (color && _cfg.regx.color.test(color)) {
             mu.hset(usrkey, 'color', color);
         };
 
         var icon = ctx.query.icon || ctx.request.body.icon;
-        if (icon) {
+        if (icon && _cfg.regx.icon.test(icon)) {
             mu.hset(usrkey, 'icon', icon);
         };
 
@@ -221,9 +221,9 @@ _account.getUsrInfoCo = function(uid) {
             id: dbusr.id,
             phone: dbusr.phone,
             ukey: dbusr.ukey,
-            nick:dbusr.nick,
-            color:dbusr.color,
-            icon:dbusr.icon,
+            nick: dbusr.nick,
+            color: dbusr.color,
+            icon: dbusr.icon,
         }
 
         return res;
@@ -394,6 +394,7 @@ _account.sendPhoneCodeCo = function(phone) {
         var minit = _cfg.dur.phoneCode / 60;
         var path = '/kingtto_media/106sms/106sms?mobile=' + phone;
         path += '&content=【项目工场】您的验证码是' + code + '，有效时间' + minit + '分钟，请不要告诉他人';
+        path += '&tag=2'; //json格式返回
         path = encodeURI(path);
         var opt = {
             hostname: 'apis.baidu.com',
