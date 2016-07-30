@@ -1,15 +1,15 @@
 <!--控制器界面部分-->
-<div id='profile' ng-controller='profile' class='container-fluid profile'>
+<div id='acc_profile' ng-controller='acc_profile' class='container-fluid acc_profile'>
     <style>
-        .profile label {
+        .acc_profile label {
             font-size: 2rem;
             font-family: inherit;
         }
-        .profile input {
+        .acc_profile input {
             font-size: 2rem;
             font-family: inherit;
         }
-        .profile md-input-container {
+        .acc_profile md-input-container {
             margin-top: 3rem
         }
         /*覆盖toast位置*/
@@ -64,7 +64,7 @@
                     <input name="icon" ng-model="user.icon" ng-pattern="/^fa-[\w-]{1,32}$/" />
                     <div class="hint">fontawesome图标,如fa-leaf,其他将不显示</div>
                 </md-input-container>
-                <md-button md-no-ink class="md-primary" ng-click='goPage("changePw")'>修改密码</md-button>
+                <md-button md-no-ink class="md-primary" ng-click='goPage("acc_changePw")'>修改密码</md-button>
 
                 <div style="margin-top:2rem">
                     <md-button class="md-raised md-accent btn-lg col-xs-6" ng-click='saveProfile()'>保存</md-button>
@@ -77,7 +77,7 @@
 
 <!--加载外部控制器js文件-->
 <script>
-    _fns.addCtrlrJs('profile');
+    _fns.addCtrlrJs('acc_profile');
 </script>
 
 

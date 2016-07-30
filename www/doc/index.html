@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html ng-app="app">
 
@@ -34,8 +33,8 @@
 
 <body>
     <!--    _xmgc通用头部-->
-    <script src="//m.xmgc360.com/start/web/js/_xmgc.js"></script>
-
+    <!--    <script src="//m.xmgc360.com/start/web/js/_xmgc.js"></script>-->
+    <div id='curPage' ng-include='$root.sidnav'>...</div>
     <!--    页面内容-->
     <div id='appBox' class='container-fluid'>
         <div id='curPage' ng-include='$root.curPageUrl'>...</div>

@@ -3,7 +3,7 @@
 */
 
 (function() {
-    var ctrlrName = 'profile';
+    var ctrlrName = 'acc_register';
 
     _app.controller(ctrlrName, fn);
 
@@ -34,25 +34,22 @@
             $.post(api, dat, function(res) {
                 console.log('POST', api, dat, res);
                 if (res.code == 1) {
-                    //已经登陆，把数据填充到用户
-                    $scope.$apply(function() {
-                        for (var attr in res.data) {
-                            $scope.user[attr] = res.data[attr];
-                        };
-                        $scope.hasLogin = true;
-                    })
-                } else {
-                    //还没登陆，弹窗返回上一页或者登录页
+                    //已经登陆，提示是否要注销，不注销就后退页面
                     var confirm = $mdDialog.confirm()
-                        .title('您还没登陆，需要为您跳转到登录页吗?')
-                        .textContent('必须登陆后才能修改资料.')
-                        .ok('立即登陆')
+                        .title('您已经登陆，需要为您注销吗?')
+                        .textContent('必须注销后才能注册新账号.')
+                        .ok('注销账号')
                         .cancel('返回');
                     $mdDialog.show(confirm).then(function(result) {
-                        $scope.goPage('login');
+                        //注销当前账号
+                        $scope.loginOut();
                     }, function() {
+                        //返回上一页
                         window.location.href = document.referrer;
                     });
+                    $scope.hasLogin = true;
+                } else {
+                    //还没登陆
                     $scope.hasLogin = false;
                 };
             });
@@ -74,9 +71,7 @@
                         .textContent('注销成功！')
                         .position('top right')
                         .hideDelay(3000)
-                    ).then(function(result) {
-                        $scope.goPage('login');
-                    });
+                    );
                 } else {
                     //提示错误
                     $mdToast.show(
@@ -89,30 +84,66 @@
             });
         };
 
-        //注册账号
-        $scope.saveProfile = function() {
-            var api = _cfg.apiPrefix + 'saveProfile';
+
+        //验证码按钮倒计时功能
+        $scope.waiting = 0;
+        var waitid = 0;
+
+        //获取验证码
+        $scope.getPhoneRegCode = function() {
+            var api = _cfg.apiPrefix + 'getPhoneRegCode';
             var dat = {
-                nick: $scope.user.nick,
-                color: $scope.user.color,
-                icon: $scope.user.icon,
+                phone: $scope.user.phone
             };
 
             $.post(api, dat, function(res) {
                 console.log('POST', api, dat, res);
                 if (res.code == 1) {
-                    //如果保存成功，提示
+                    //启动倒计时
+                    $scope.waiting = 120;
+                    clearInterval(waitid);
+                    waitid = setInterval(function() {
+                        $scope.$apply(function() {
+                            $scope.waiting--;
+                        })
+                        if ($scope.waiting <= 0) {
+                            clearInterval(waitid);
+                        };
+                    }, 1000);
+                } else {
+                    //提示错误
                     $mdToast.show(
                         $mdToast.simple()
-                        .textContent('保存成功！')
+                        .textContent('发送失败:' + res.text)
                         .position('top right')
                         .hideDelay(3000)
                     );
+                }
+            });
+        };
+
+        //注册账号
+        $scope.regByPhone = function() {
+            var api = _cfg.apiPrefix + 'regByPhone';
+            var dat = {
+                phone: $scope.user.phone,
+                phoneCode: $scope.user.phoneCode,
+                pw: md5($scope.user.pw),
+            };
+
+            $.post(api, dat, function(res) {
+                console.log('POST', api, dat, res);
+                if (res.code == 1) {
+                    //如果登陆成功，根据args进行跳转
+                    if ($scope.args.okUrl) {
+                        window.location.href = encodeURI($scope.args.okUrl);
+                    } else {
+                        $scope.goPage('acc_profile');
+                    }
                 } else {
-                    //如果保存失败，提示
                     $mdToast.show(
                         $mdToast.simple()
-                        .textContent('保存失败:' + res.text)
+                        .textContent('注册失败:' + res.text)
                         .position('top right')
                         .hideDelay(3000)
                     );
@@ -125,6 +156,12 @@
         $scope.cancel = function() {
             window.location.href = document.referrer;
         };
+
+        //测试
+        $scope.print = function(str) {
+            console.log(str);
+        };
+        $scope.showHints = false;
 
 
         //自动运行的函数

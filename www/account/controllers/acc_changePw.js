@@ -3,7 +3,7 @@
 */
 
 (function() {
-    var ctrlrName = 'register';
+    var ctrlrName = 'acc_changePw';
 
     _app.controller(ctrlrName, fn);
 
@@ -37,7 +37,7 @@
                     //已经登陆，提示是否要注销，不注销就后退页面
                     var confirm = $mdDialog.confirm()
                         .title('您已经登陆，需要为您注销吗?')
-                        .textContent('必须注销后才能注册新账号.')
+                        .textContent('必须注销后才能重置密码.')
                         .ok('注销账号')
                         .cancel('返回');
                     $mdDialog.show(confirm).then(function(result) {
@@ -90,8 +90,8 @@
         var waitid = 0;
 
         //获取验证码
-        $scope.getPhoneRegCode = function() {
-            var api = _cfg.apiPrefix + 'getPhoneRegCode';
+        $scope.getPhoneRstCode = function() {
+            var api = _cfg.apiPrefix + 'getPhoneRstCode';
             var dat = {
                 phone: $scope.user.phone
             };
@@ -123,14 +123,13 @@
         };
 
         //注册账号
-        $scope.regByPhone = function() {
-            var api = _cfg.apiPrefix + 'regByPhone';
+        $scope.rstPwByPhone = function() {
+            var api = _cfg.apiPrefix + 'rstPwByPhone';
             var dat = {
                 phone: $scope.user.phone,
                 phoneCode: $scope.user.phoneCode,
                 pw: md5($scope.user.pw),
             };
-
             $.post(api, dat, function(res) {
                 console.log('POST', api, dat, res);
                 if (res.code == 1) {
@@ -138,12 +137,12 @@
                     if ($scope.args.okUrl) {
                         window.location.href = encodeURI($scope.args.okUrl);
                     } else {
-                        $scope.goPage('profile');
+                        window.location.href = document.referrer;
                     }
                 } else {
                     $mdToast.show(
                         $mdToast.simple()
-                        .textContent('注册失败:' + res.text)
+                        .textContent('修改失败:' + res.text)
                         .position('top right')
                         .hideDelay(3000)
                     );

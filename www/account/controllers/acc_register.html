@@ -1,15 +1,15 @@
 <!--控制器界面部分-->
-<div id='changePw' ng-controller='changePw' class='container-fluid changePw' layout="column" layout-padding ng-cloak>
+<div id='acc_register' ng-controller='acc_register' class='container-fluid acc_register'>
     <style>
-        .changePw label {
+        .acc_register label {
             font-size: 2rem;
             font-family: inherit;
         }
-        .changePw input {
+        .acc_register input {
             font-size: 2rem;
             font-family: inherit;
         }
-        .changePw md-input-container {
+        .acc_register md-input-container {
             margin-top: 3rem;
             font-family: inherit;
         }
@@ -27,9 +27,9 @@
         }
     </style>
     <div class="demo-md-panel md-padding col-xs-12 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
-        <div style='margin-top:3rem;margin-bottm:2rem'>
-            <span class='h2' style="margin-top:4rem">重置密码</span>
-            <md-button md-no-ink class="md-primary" ng-click='goPage("login")'>返回登录页面</md-button>
+        <div style='margin-top:3rem;margin-bottom:2rem'>
+        <span class='h2' style="margin-top:4rem">注册新用户</span>
+        <md-button md-no-ink class="md-primary" ng-click='goPage("acc_login")'>已经注册,直接登陆</md-button>
         </div>
         <form name="userForm">
             <md-content class="md-no-momentum">
@@ -42,7 +42,7 @@
                     <div ng-messages="usrForm.phone.$error">
                         <div ng-if="userForm.phone.$error.pattern">必须使用真实号码，请确认输入正确</div>
                     </div>
-                    <md-button class="md-raised md-primary pull-right" ng-click='getPhoneRstCode()' ng-show='!waiting'>发送验证码</md-button>
+                    <md-button class="md-raised md-primary pull-right" ng-click='getPhoneRegCode()' ng-show='!waiting'>发送验证码</md-button>
                     <md-button class="md-raised md-primary pull-right" ng-show='waiting' ng-disabled='true'>重新发送({{waiting}})</md-button>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
@@ -59,27 +59,24 @@
                     <md-icon>
                         <i class="fa fa-lock fa-lg"></i>
                     </md-icon>
-                    <label>新密码</label>
+                    <label>密码</label>
                     <input name="pw" type='password' ng-model="user.pw" ng-pattern="/^.{6,18}$/" />
                     <div ng-messages="usrForm.pw.$error">
                         <div ng-if="userForm.pw.$error.pattern">6~18位任意数字</div>
                     </div>
                 </md-input-container>
                 <div style="margin-top:3rem">
-                    <md-button class="md-raised md-accent btn-lg col-xs-6" ng-click='rstPwByPhone()'>确认提交</md-button>
+                    <md-button class="md-raised md-accent btn-lg col-xs-6" ng-click='regByPhone()'>确认提交</md-button>
                     <md-button class="md-raised md-default btn-lg" ng-click='cancel()'>取消</md-button>
                 </div>
             </md-content>
         </form>
     </div>
-
-
 </div>
-
 
 <!--加载外部控制器js文件-->
 <script>
-    _fns.addCtrlrJs('changePw');
+    _fns.addCtrlrJs('acc_register');
 </script>
 
 

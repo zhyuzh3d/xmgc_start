@@ -3,7 +3,7 @@
 */
 
 (function() {
-    var ctrlrName = 'changePw';
+    var ctrlrName = 'acc_profile';
 
     _app.controller(ctrlrName, fn);
 
@@ -34,22 +34,25 @@
             $.post(api, dat, function(res) {
                 console.log('POST', api, dat, res);
                 if (res.code == 1) {
-                    //已经登陆，提示是否要注销，不注销就后退页面
+                    //已经登陆，把数据填充到用户
+                    $scope.$apply(function() {
+                        for (var attr in res.data) {
+                            $scope.user[attr] = res.data[attr];
+                        };
+                        $scope.hasLogin = true;
+                    })
+                } else {
+                    //还没登陆，弹窗返回上一页或者登录页
                     var confirm = $mdDialog.confirm()
-                        .title('您已经登陆，需要为您注销吗?')
-                        .textContent('必须注销后才能重置密码.')
-                        .ok('注销账号')
+                        .title('您还没登陆，需要为您跳转到登录页吗?')
+                        .textContent('必须登陆后才能修改资料.')
+                        .ok('立即登陆')
                         .cancel('返回');
                     $mdDialog.show(confirm).then(function(result) {
-                        //注销当前账号
-                        $scope.loginOut();
+                        $scope.goPage('acc_login');
                     }, function() {
-                        //返回上一页
                         window.location.href = document.referrer;
                     });
-                    $scope.hasLogin = true;
-                } else {
-                    //还没登陆
                     $scope.hasLogin = false;
                 };
             });
@@ -71,7 +74,9 @@
                         .textContent('注销成功！')
                         .position('top right')
                         .hideDelay(3000)
-                    );
+                    ).then(function(result) {
+                        $scope.goPage('acc_login');
+                    });
                 } else {
                     //提示错误
                     $mdToast.show(
@@ -84,65 +89,30 @@
             });
         };
 
-
-        //验证码按钮倒计时功能
-        $scope.waiting = 0;
-        var waitid = 0;
-
-        //获取验证码
-        $scope.getPhoneRstCode = function() {
-            var api = _cfg.apiPrefix + 'getPhoneRstCode';
+        //注册账号
+        $scope.saveProfile = function() {
+            var api = _cfg.apiPrefix + 'saveProfile';
             var dat = {
-                phone: $scope.user.phone
+                nick: $scope.user.nick,
+                color: $scope.user.color,
+                icon: $scope.user.icon,
             };
 
             $.post(api, dat, function(res) {
                 console.log('POST', api, dat, res);
                 if (res.code == 1) {
-                    //启动倒计时
-                    $scope.waiting = 120;
-                    clearInterval(waitid);
-                    waitid = setInterval(function() {
-                        $scope.$apply(function() {
-                            $scope.waiting--;
-                        })
-                        if ($scope.waiting <= 0) {
-                            clearInterval(waitid);
-                        };
-                    }, 1000);
-                } else {
-                    //提示错误
+                    //如果保存成功，提示
                     $mdToast.show(
                         $mdToast.simple()
-                        .textContent('发送失败:' + res.text)
+                        .textContent('保存成功！')
                         .position('top right')
                         .hideDelay(3000)
                     );
-                }
-            });
-        };
-
-        //注册账号
-        $scope.rstPwByPhone = function() {
-            var api = _cfg.apiPrefix + 'rstPwByPhone';
-            var dat = {
-                phone: $scope.user.phone,
-                phoneCode: $scope.user.phoneCode,
-                pw: md5($scope.user.pw),
-            };
-            $.post(api, dat, function(res) {
-                console.log('POST', api, dat, res);
-                if (res.code == 1) {
-                    //如果登陆成功，根据args进行跳转
-                    if ($scope.args.okUrl) {
-                        window.location.href = encodeURI($scope.args.okUrl);
-                    } else {
-                        window.location.href = document.referrer;
-                    }
                 } else {
+                    //如果保存失败，提示
                     $mdToast.show(
                         $mdToast.simple()
-                        .textContent('修改失败:' + res.text)
+                        .textContent('保存失败:' + res.text)
                         .position('top right')
                         .hideDelay(3000)
                     );
@@ -155,12 +125,6 @@
         $scope.cancel = function() {
             window.location.href = document.referrer;
         };
-
-        //测试
-        $scope.print = function(str) {
-            console.log(str);
-        };
-        $scope.showHints = false;
 
 
         //自动运行的函数
