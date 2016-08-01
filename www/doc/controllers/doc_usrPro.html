@@ -1,0 +1,79 @@
+<script>
+    _fns.addCtrlrJs('doc_usrPro');
+</script>
+
+<!--控制器界面部分-->
+<div id='doc_usrPro' ng-controller='doc_usrPro' class='container-fluid doc_usrPro doc_ctrlr' >
+    <style>
+        /*内部样式，以.doc_devWeb开头*/
+
+        .doc_usrPro ol li {
+            margin: 1rem 2rem;
+        }
+
+        .doc_usrPro ol li a:hover {
+            text-decoration: none;
+        }
+
+        .doc_usrPro .tip {
+            background: #FEA;
+            padding: 1rem 2rem;
+            min-width: 100%;
+        }
+
+        .doc_usrPro h4 {
+            background: #EEE;
+            padding: 1rem;
+            min-width: 100%
+        }
+
+        .doc_usrPro h5 {
+            background: #EEE;
+            padding: 1rem;
+            min-width: 100%
+        }
+
+        .doc_usrPro p {
+            min-width: 100%;
+            line-height: 2.5rem;
+            margin-bottom: 2rem;
+            word-break: break-all;
+            white-space: pre-line;
+            text-align: justify;
+        }
+    </style>
+    <div layout-padding>
+        <md-button hide-gt-sm class="md-icon-button" ng-click="$root.tagLeftMenu()" style='margin-left:0'>
+            <span class="fa fa-bars fa-lg"></span>
+        </md-button>
+        <!--控制器界面部分-->
+        <h3>专家用户使用向导</h3>
+        <div style="color:#AAA">专家用户如何使用项目工场获取资源？</div>
+        <!--    目录-->
+        <md-list style='padding:0'>
+            <md-list-item li ng-click='goto("intro")'><a href=''>贡献经验获取奖励</a></md-list-item>
+        </md-list>
+        <br>
+
+        <!--    贡献经验获取奖励-->
+        <md-list layout='column' style='padding:0'>
+            <md-list-item id='intro' layout='column' layout-align='start start'>
+                <h4>贡献经验获取奖励</h4>
+                <br>
+                <p></p>
+            </md-list-item>
+        </md-list>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!---->

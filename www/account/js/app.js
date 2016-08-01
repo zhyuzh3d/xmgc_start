@@ -84,15 +84,28 @@ var _xdat = {}; //共享变量
         'app.filters',
         'app.directives',
         'app.controllers',
+        'ngRoute',
         'ngMaterial',
     ]).config(
-        function angularConfig($locationProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $mdThemingProvider) {
+        function angularConfig($locationProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $routeProvider, $mdThemingProvider) {
             $locationProvider.html5Mode(true);
             _app.controller = $controllerProvider.register;
             _app.service = $provide.service;
             _app.factory = $provide.factory;
             _app.directive = $compileProvider.directive;
             _app.filter = $filterProvider.register;
+
+            //路由设置
+            $routeProvider
+                .when('/', {
+                    controller: 'controllers/acc_profile'
+                })
+                .when('/login', {
+                    controller: 'controllers/acc_login'
+                })
+                .otherwise({
+                    redirectTo: '/'
+                });
 
             //material design theme主题颜色定制
             $mdThemingProvider.theme('default')

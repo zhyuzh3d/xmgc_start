@@ -1,0 +1,79 @@
+<script>
+    _fns.addCtrlrJs('doc_devWeb');
+</script>
+
+<!--控制器界面部分-->
+<div id='doc_devWeb' ng-controller='doc_devWeb' class='container-fluid doc_devWeb doc_ctrlr'>
+    <style>
+        /*内部样式，以.doc_devWeb开头*/
+
+        .doc_devWeb ol li {
+            margin: 1rem 2rem;
+        }
+
+        .doc_devWeb ol li a:hover {
+            text-decoration: none;
+        }
+
+        .doc_devWeb .tip {
+            background: #FEA;
+            padding: 1rem 2rem;
+            min-width: 100%;
+        }
+
+        .doc_devWeb h4 {
+            background: #EEE;
+            padding: 1rem;
+            min-width: 100%
+        }
+
+        .doc_devWeb h5 {
+            background: #EEE;
+            padding: 1rem;
+            min-width: 100%
+        }
+
+        .doc_devWeb p {
+            min-width: 100%;
+            line-height: 2.5rem;
+            margin-bottom: 2rem;
+            word-break: break-all;
+            white-space: pre-line;
+            text-align: justify;
+        }
+    </style>
+    <div layout-padding>
+        <md-button hide-gt-sm class="md-icon-button" ng-click="$root.tagLeftMenu()" style='margin-left:0'>
+            <span class="fa fa-bars fa-lg"></span>
+        </md-button>
+        <!--控制器界面部分-->
+        <h3>Web前端开发者向导</h3>
+        <div style="color:#AAA">Web前端开发者如何为项目工场贡献代码？</div>
+        <!--    目录-->
+        <md-list style='padding:0'>
+            <md-list-item li ng-click='goto("intro")'><a href=''>项目结构参考</a></md-list-item>
+        </md-list>
+        <br>
+
+        <!--    服务器架构-->
+        <md-list layout='column' style='padding:0'>
+            <md-list-item id='intro' layout='column' layout-align='start start'>
+                <h4>项目结构参考</h4>
+                <br>
+                <p></p>
+            </md-list-item>
+        </md-list>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!---->

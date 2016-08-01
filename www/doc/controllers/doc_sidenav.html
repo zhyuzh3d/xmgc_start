@@ -1,0 +1,36 @@
+<script>
+    _fns.addCtrlrJs('doc_sideNav');
+</script>
+
+<!--控制器界面部分-->
+<div layout id='doc_sideNav' ng-controller='doc_sideNav' class='doc_sideNav' style='width: 100%; height: 100%; overflow:visible'>
+    <style>
+        /*内部样式，以.doc_devWeb开头*/
+    </style>
+    <!--控制器界面部分-->
+    <md-sidenav layout='column' md-component-id="left" class="site-sidenav md-sidenav-left"  md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" style='width:90%' md-whiteframe='8'>
+        <div md-colors='{background:"primary"}' layout-padding>
+            <div style="font-size:2rem;color:#FFF;margin:1rem">Doc文档</div>
+        </div>
+        <md-list layout='column' style='padding:0'>
+            <md-list-item class="md-1-line" ng-repeat="item in menus" ng-click='$root.gotoCtrlr(item.ctrlr);$root.tagLeftMenu()'>
+                <div layout-padding>
+                    <span ng-class="item.icon"></span>
+                    <span ng-bind='item.name'></span>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!---->

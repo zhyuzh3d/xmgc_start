@@ -1,22 +1,20 @@
-//顶部导航控制器
 (function () {
-    var ctrlrName = 'doc_dev';
+    'use strict';
+    var thisName = 'doc_devSvr';
 
-    angular.module('app').controller(ctrlrName, fn);
+    _app.controller(thisName, thisFn);
 
-    function fn($rootScope, $scope, $location, $anchorScroll) {
-        $rootScope[ctrlrName] = $scope;
-
-        //需要载入的内容，仅限延迟使用，即时使用的需要加入index.html
-        _fns.addLib('swal');
-        _fns.addLib('toastr');
-
-        $scope.ctrlrName = ctrlrName;
-
-        //换页
-        $scope.goPage = function (pname) {
-            $rootScope.changePage(pname);
-        };
+    function thisFn(
+        $rootScope,
+        $scope,
+        $location,
+        $anchorScroll,
+        $element,
+        $mdToast,
+        $mdDialog
+    ) {
+        console.log(thisName + '.js is loading...');
+        _fns.initCtrlr($scope, $element, thisName, false);
 
         //锚点
         $scope.goto = function (key) {
@@ -28,6 +26,7 @@
         $scope.getMainConf = function () {
             var api = 'http://m.xmgc360.com/main/api/getConf';
             $.get(api, function (res) {
+                console.log('GET', api, null, res);
                 var mainjo = $('#mainConfTa');
                 var maintar = mainjo[0];
                 var mainstr = '读取失败，请稍后再试';
@@ -36,6 +35,7 @@
                 var modluestr = '读取失败，请稍后再试';
 
                 if (res.code == 1) {
+                    $scope.mainConf = res.data.mainConf;
                     mainstr = res.data.mainConf;
                     modulestr = res.data.moduleConf;
                 };
@@ -56,8 +56,5 @@
             tar.style.height = tar.scrollHeight + 'px'
         };
 
-
-        //end
-        console.log(ctrlrName + '.js loading...')
-    };
+    }
 })();

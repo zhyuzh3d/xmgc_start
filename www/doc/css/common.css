@@ -1,3 +1,20 @@
+body {
+    font-family: simhei;
+    background: #FAFAFA;
+}
+
+#appBox {
+    min-height: 100%;
+    padding: 0
+}
+
+.doc_ctrlr {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    overflow-x: hidden;
+}
+
 .elips {
     overflow: hidden;
     text-overflow: ellipsis;

@@ -1,0 +1,168 @@
+<script>
+    _fns.addCtrlrJs('doc_devSvr');
+</script>
+
+<!--控制器界面部分-->
+<div id='doc_devSvr' ng-controller='doc_devSvr' class='container-fluid doc_devSvr doc_ctrlr' >
+    <style>
+        /*内部样式，以.doc_devWeb开头*/
+
+        .doc_devSvr textarea {
+            background: #EEE;
+        }
+
+        .doc_devSvr ol li {
+            margin: 1rem 2rem;
+        }
+
+        .doc_devSvr ol li a:hover {
+            text-decoration: none;
+        }
+
+        .doc_devSvr .tip {
+            background: #FEA;
+            padding: 1rem 2rem;
+            min-width: 100%;
+        }
+
+        .doc_devSvr h4 {
+            background: #EEE;
+            padding: 1rem;
+            min-width: 100%
+        }
+
+        .doc_devSvr h5 {
+            background: #EEE;
+            padding: 1rem;
+            min-width: 100%
+        }
+
+        .doc_devSvr p {
+            min-width: 100%;
+            line-height: 2.5rem;
+            margin-bottom: 2rem;
+            word-break: break-all;
+            white-space: pre-line;
+            text-align: justify;
+        }
+    </style>
+    <div layout-padding>
+        <md-button hide-gt-sm class="md-icon-button" ng-click="$root.tagLeftMenu()" style='margin-left:0'>
+            <span class="fa fa-bars fa-lg"></span>
+        </md-button>
+        <!--控制器界面部分-->
+        <h3>服务端开发者向导</h3>
+        <div style="color:#AAA">后端服务开发者如何为项目工场贡献代码？</div>
+        <!--    目录-->
+        <md-list style='padding:0'>
+            <md-list-item li ng-click='goto("intro")'><a href=''>多服务器架构说明</a></md-list-item>
+            <md-list-item ng-click='goto("mainintro")'><a href=''>主服务器设置说明</a></md-list-item>
+            <md-list-item ng-click='goto("moduleguid")'><a href=''>模块服务器设置向导</a></md-list-item>
+        </md-list>
+        <br>
+
+        <!--    服务器架构-->
+        <md-list layout='column' style='padding:0'>
+            <md-list-item layout='column' id='intro' layout-align='start start'>
+                <h4>多服务器架构说明</h4>
+                <br>
+                <p>项目工场移动版App的域名地址是<a href="http://m.xmgc360.com/">http://m.xmgc360.com/</a>,这个页面也是App启动后的首页，是所有功能模块的入口。</p>
+                <p>项目工场的全部后端功能由一个主代理服务器和多个模块服务器共同提供。</p>
+                <p>所有的用户请求（request）都先发送到主服务器，然后由主服务器的nginx代理转发到相对应的模块服务器，模块服务器进行数据处理，处理完成后的数据再经由主服务器返回到用户端。</p>
+                <p class="tip">用户request → 主服务器 → 模块服务器 → 返回数据response → 主服务器 → 用户端</p>
+                <p>通过这种主从代理转发的模式达到多个服务器共同在一个域名下提供服务的模式，多个团队可以自由的进行功能和数据的扩展。</p>
+                <p class="tip">每个模块服务器在编写代码功能和API接口的时候并不需要考虑多服务器架构问题，只考虑自身的业务功能逻辑即可，具体请参考下面的［模块服务器设置向导］部分</p>
+            </md-list-item>
+
+            <!--    主代理服务器设置-->
+            <md-list-item layout='column' id='mainintro' layout-align='start start'>
+                <h4>主服务器设置说明</h4>
+                <br>
+                <p class="tip">主服务器运行在腾讯云华东地区（上海一区）公网IP：115.159.115.188，内网IP：10.105.240.231，条件允许的情况下，所有模块服务器最终都应运行在该内网区域IP段</p>
+                <p>主代理服务器负责接收用户请求并向其他模块服务器进行代理转发，以确保所有模块服务器工作在一个共同域名下，即m.xmgc360.com</p>
+                <p>主服务器依赖于nginx的最简单代理转发设置，其主要.conf文件内容如下：</p>
+
+
+                <md-input-container layout='column' class="md-block" style="background:#EEE;padding:8px 15px;width:100%">
+                    <textarea ng-model="mainConf" md-no-resize readonly="readonly"></textarea>
+                </md-input-container>
+
+                <p> </p>
+                <p>从上面可以看到三个模块，欢迎模块，start开始模块和main主模块。其中welcome欢迎模块和start开始模块运行在同一服务器端口(115.159.208.135:10000),welcome模块处于start的子层(.../xmgc_m/web/welcome/)，的确如此，您当前所在的文档doc模块和welcome模块一样，也是运行在start模块下，即http://115.159.208.135:10000/xmgc_m/位置。</p>
+                <p>每个模块服务器都必须提供.../xmgc_m/路径可以访问（.../xmgc_m/web/提供网页文件服务，.../xmgc_m/api/提供业务数据接口）。每个模块服务器可以仅单个功能模块，也可以提供多个子模块功能，但都必须首先向主服务器管理员申请，由管理员添加到主服务器.conf代理路由才能生效。具体参照下面［模块服务器设置向导］部分</p>
+                <p class="tip">主服务器管理员QQ286052520</p>
+            </md-list-item>
+            <br>
+
+
+            <!--    模块服务器设置向导-->
+
+            <md-list-item layout='column' id='moduleguid' layout-align='start start'>
+                <h4>模块服务器设置向导</h4>
+                <br>
+                <p class="tip">主服务器运行在腾讯云华东地区（上海一区）公网IP：115.159.115.188，内网IP：10.105.240.231，条件允许的情况下，所有模块服务器最终都应运行在该内网区域IP段</p>
+                <p class="tip">主服务器管理员QQ286052520</p>
+                <p>首先，需要拥有一台能够提供互联网服务的虚拟主机（具有固定IP）作为模块服务器，然后在此服务器的某个公网IP端口（如10000端口）上实现http://XXX.XXX.XXX.XXX:10000/xmgc_m/路径，网页文件服务在.../xmgc_m/web/路径，业务功能接口在.../xmgc_m/api/下。</p>
+                <h5>参考操作流程如下：</h5>
+                <ol layout='column' layout-align='start start' style="background:#DEF;padding:15px">
+                    <li>购买腾讯云服务器CVM或其他云主机，假设该云主机公网IP为115.159.208.135</li>
+                    <li>创建所需的web项目文件目录结构，包括相关的html文件、js文件和图片文件等，建议放在根目录/xmgc_m/web/下。</li>
+                    <li>使用nodejs/php或其他语言创建服务端程序，监听8000端口，处理/api/test接口，返回简单的JSON格式测试数据</li>
+                    <li>安装nginx，并设置conf文件，使其提供以下两个路径服务
+                        <ul style="padding-left:1rem">
+                            <li>文件服务路径：http://115.159.208.135:10000/xmgc_m/web/</li>
+                            <li>接口服务路径：http://115.159.208.135:10000/xmgc_m/api/</li>
+                        </ul>
+                    </li>
+                    <li>打开浏览器测试以上两个端口确认其可以正常访问
+                        <ul style="padding-left:1rem">
+                            <li>http://115.159.208.135:10000/xmgc_m/web/index.html</li>
+                            <li>http://115.159.208.135:10000/xmgc_m/api/test</li>
+                        </ul>
+                    </li>
+                    <li>联系主服务器管理员，提交您的模块服务器信息，申请测试
+                        <ul style="padding-left:1rem">
+                            <li>name，模块名称，如doc</li>
+                            <li>description，模块功能描</li>
+                            <li>serverIp，您的模块服务器公网ip</li>
+                            <li>port，/xmgc_m/路径工作在哪个端口，推荐10000端口</li>
+                            <li>author，模块负责人的联系信息，必须包含name真实姓名，phone电话号码，可选包含email常用邮箱，qq号码，wechat微信账号（不是昵称）等信息</li>
+                        </ul>
+                    </li>
+                    <li>等待管理员通知，成功后通过浏览器或项目工场App检查您的模块是否可以正常访问
+                        <ul style="padding-left:1rem">
+                            <li>http://m.xmgc360.com/start/web/index.html</li>
+                            <li>http://m.xmgc360.com/start/api/test</li>
+                        </ul>
+                    </li>
+                    <li>恭喜您已经成功，接下来您可以完善您的网页文件和编写更多的API接口供用户或其他项目工场模块开发者使用了！</li>
+                </ol>
+
+                <br>
+                <h5>供参考的模块服务器Nginx的conf设置</h5>
+                <md-input-container class="md-block" style="background:#EEE;padding:8px 15px;width:100%">
+                    <textarea ng-model="mainConf" md-no-resize readonly="readonly"></textarea>
+                </md-input-container>
+
+            </md-list-item>
+            <br>
+
+        </md-list>
+
+    </div>
+    <!--    页脚内容-->
+    <div flex class="container" style="margin:5rem 1rem 10rem 2rem">
+        <small style="color:#AAA">contributor is zhyuzh | QQ:286052520</small>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!---->
