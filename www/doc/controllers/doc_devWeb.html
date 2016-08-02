@@ -6,41 +6,54 @@
 <div id='doc_devWeb' ng-controller='doc_devWeb' class='container-fluid doc_devWeb doc_ctrlr'>
     <style>
         /*内部样式，以.doc_devWeb开头*/
-
         .doc_devWeb ol li {
             margin: 1rem 2rem;
         }
-
         .doc_devWeb ol li a:hover {
             text-decoration: none;
         }
-
-        .doc_devWeb .tip {
+        .doc_devWeb tip {
             background: #FEA;
             padding: 1rem 2rem;
             min-width: 100%;
+            line-height: 2rem;
         }
-
         .doc_devWeb h4 {
             background: #EEE;
-            padding: 1rem;
+            padding: 2rem;
+            margin: 0;
             min-width: 100%
         }
-
         .doc_devWeb h5 {
             background: #EEE;
             padding: 1rem;
-            min-width: 100%
+            min-width: 100%;
+            margin: 0;
         }
-
+        .doc_devWeb li {
+            line-height: 2rem
+        }
         .doc_devWeb p {
             min-width: 100%;
-            line-height: 2.5rem;
-            margin-bottom: 2rem;
+            line-height: 2rem;
+            margin-bottom: 1rem;
+            margin-top: 1rem;
             word-break: break-all;
             white-space: pre-line;
             text-align: justify;
         }
+        .doc_devWeb .chapters md-list-item {
+            margin-top: 6rem;
+        }
+
+        .doc_devWeb textarea{
+            font-family: simhei;
+            font-size: 1.25rem;
+            white-space: pre;
+            overflow-x: hidden;
+
+        }
+
     </style>
     <div layout-padding>
         <md-button hide-gt-sm class="md-icon-button" ng-click="$root.tagLeftMenu()" style='margin-left:0'>
@@ -51,19 +64,102 @@
         <div style="color:#AAA">Web前端开发者如何为项目工场贡献代码？</div>
         <!--    目录-->
         <md-list style='padding:0'>
-            <md-list-item li ng-click='goto("intro")'><a href=''>项目结构参考</a></md-list-item>
+            <md-list-item li ng-click='goto("yangshi")'><a href=''>样式与界面</a>
+            </md-list-item>
+            <md-list-item li ng-click='goto("lujing")'><a href=''>页面与路径</a>
+            </md-list-item>
+            <md-list-item li ng-click='goto("xinxi")'><a href=''>模块信息文件</a>
+            </md-list-item>
+            <md-list-item li ng-click='goto("daohang")'><a href=''>底部导航栏</a>
+            </md-list-item>
         </md-list>
         <br>
-
-        <!--    服务器架构-->
-        <md-list layout='column' style='padding:0'>
-            <md-list-item id='intro' layout='column' layout-align='start start'>
-                <h4>项目结构参考</h4>
-                <br>
-                <p></p>
+        <md-list style='padding:0'>
+            <md-list-item li ng-click='goto("yangshi")'>
+                <a href='https://github.com/zhyuzh3d/xmgc_start' style='font-size:1.8rem'>
+                    <span class="fa fa-github fa-lg"></span>
+                    <span>请在github.com上搜索xmgc_start项目</span>
+                </a>
             </md-list-item>
         </md-list>
 
+
+        <!--    内容-->
+        <md-list layout='column' style='padding:0' class='chapters'>
+            <md-list-item id='yangshi' layout='column' layout-align='start start'>
+                <h4>样式与界面</h4>
+                <p>为了保持界面UI风格的统一，推荐使用规范的Material design风格的样式，下面提供了一些参考（点击查看）：</p>
+                <ol>
+                    <li>
+                        <span>修改host文件，以便正常访问部分谷歌页面</span>
+                        <a href="https://github.com/racaljk/hosts">github.com/racaljk/hosts</a>
+                    </li>
+                    <li>
+                        <span>谷歌官方Material Design规范说明</span>
+                        <a href="https://material.google.com/">material.google.com</a>
+                    </li>
+                    <li>
+                        <span>Angular Material Design官方站点</span>
+                        <a href="https://material.angularjs.org/latest/">material.angularjs.org/latest/</a>
+                    </li>
+                </ol>
+                <tip>关于适配，原则上优先适配移动端竖屏，如果可以同时适配PC横屏，那也是极好的。</tip>
+            </md-list-item>
+            <md-list-item id='lujing' layout='column' layout-align='start start'>
+                <h4>模块页面与路径</h4>
+                <p>项目工场移动端所有页面由各个模块提供</p>
+                <tip>每个模块的首页路径是"m.xmgc360.com/模块名/web/",例如"m.xmgc360.com/start/web/",每个模块务必确保这个地址的页面可以正常访问</tip>
+                <p>每个模块除了首页(index.html)之外，还可以包含多个子页面，这些子页面路径由每个模块自由安排，同时也可以由其他模块跳转过来访问，比如：</p>
+                <ul>
+                    <li>m.xmgc360.com/start/web/index.html</li>
+                    <li>m.xmgc360.com/start/web/sampleA.html</li>
+                    <li>m.xmgc360.com/start/web/doc/index.html</li>
+                    <li>m.xmgc360.com/start/web/doc/sampleB.html</li>
+                </ul>
+                <p>基于上面的子页面模式，对于提供多个服务功能的模块，可以根据服务进行拆分成多个子模块，比如start模块包含了account,doc,welcome三个子模块，它们对应的目录分别是：</p>
+                <ul>
+                    <li>m.xmgc360.com/start/web/account/</li>
+                    <li>m.xmgc360.com/start/web/doc/</li>
+                    <li>m.xmgc360.com/start/web/welcome/</li>
+                </ul>
+                <tip>
+                    <p>为了更好的性能，建议每个模块都是用单页面模式，避免太多的页面跳转。即模块只有一个index.html可以直接访问，但是index页面可以使用js分析地址栏的路径参数选择加载哪个子页面，比如account这个模块只有一个index.html入口，但是下面三个带参数的路径将访问不同的子页面内容:</p>
+                    <ul>
+                        <li>m.xmgc360.com/start/web/account/?page=acc_login 访问登录页面</li>
+                        <li>m.xmgc360.com/start/web/account/?page=register 访问注册新用户页面</li>
+                        <li>m.xmgc360.com/start/web/account/?page=changePw 访问修改密码（忘记密码）用户页面</li>
+                    </ul>
+                </tip>
+            </md-list-item>
+
+            <md-list-item id='xinxi' layout='column' layout-align='start start'>
+                <h4>信息文件</h4>
+                <p>每个模块（或子模块）都应提供一个信息文件(info.json)以供访问查看，其路径必须是和模块index.html页面处于同一文件夹下：</p>
+                <tip>
+                    start模块的信息文件 m.xmgc360.com/start/web/info.json
+                    <br>account子模块的信息文件 m.xmgc360.com/start/web/account/info.json
+                </tip>
+                <p>具体内容格式参照下面account模块的信息文件,首先包含了name模块名,path模块路径,author模块作者,time模块最后更新时间等模块信息，然后包含了pages和apis两个数组对象，详细列出了这个模块提供可访问的页面地址和可响应的接口地址。</p>
+                <md-input-container class="md-block" style="background:#EEE;padding:8px 15px;width:100%;">
+                    <textarea ng-model="accinfo" md-no-resize readonly="readonly"></textarea>
+                </md-input-container>
+            </md-list-item>
+
+            <md-list-item id='daohang' layout='column' layout-align='start start'>
+                <h4>底部统一导航</h4>
+                <p>建议每个模块或子模块的首页都应展现统一的底部导航栏，请在index.html加入以下代码</p>
+                <tip>&lt;script src="//m.xmgc360.com/start/web/js/_xmgc.js"&gt;&lt;/script&gt;</tip>
+                <p>模块的任何一个页面都应有明显的按钮或链接指向模块首页或站点首页m.xmgc360.com.</p>
+                <tip>如果没有引用底部统一的导航栏，推荐使用左侧抽屉侧栏进行导航各个子页面，同时添加指向站点首页的链接，比如本页（点击最顶部左上角菜单按钮，或在移动设备屏幕上快速向右划动）。</tip>
+
+            </md-list-item>
+
+        </md-list>
+
+    </div>
+    <!--    页脚内容-->
+    <div flex class="container" style="margin:5rem 1rem 10rem 2rem">
+        <small style="color:#AAA">contributor is zhyuzh | QQ:286052520</small>
     </div>
 </div>
 

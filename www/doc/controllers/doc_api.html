@@ -1,0 +1,41 @@
+<script>
+    _fns.addCtrlrJs('doc_api');
+</script>
+
+<!--控制器界面部分-->
+<div id='doc_api' ng-controller='doc_api' class='container-fluid doc_api doc_ctrlr' ng-cloak>
+    <style>
+        /*内部样式，以.doc_devWeb开头*/
+    </style>
+
+    <div layout='row' style='width:100%'>
+        <div layout class="md-toolbar-tools" layout-align="space-between center">
+            <md-button flex='nogrow' hide-gt-sm class="md-icon-button" ng-click="$root.tagLeftMenu()" style='margin-left:0;'>
+                <span class="fa fa-bars fa-lg"></span>
+            </md-button>
+            <md-input-container flex='60'>
+                <md-select ng-model="selectedModule">
+                    <md-optgroup label="请选择模块">
+                        <md-option ng-value="item" ng-repeat="item in moduleList" ng-bind='item.name'></md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
+        </div>
+
+    </div>
+    <!--    页脚内容-->
+    <div flex class="container" style="margin:5rem 1rem 10rem 2rem">
+        <small style="color:#AAA">contributor is zhyuzh | QQ:286052520</small>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!---->

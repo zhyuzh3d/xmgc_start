@@ -12,7 +12,7 @@ var _app = {}; //最高全局变量，angular
         'app.filters',
         'app.directives',
         'app.controllers',
-        'ngMaterial'
+        'ngMaterial',
     ]);
 
     //基础设置
@@ -54,7 +54,7 @@ var _app = {}; //最高全局变量，angular
     angular.module('app.controllers', []);
 
     //执行rootscope控制器代码，可被其他控制器调用
-    _app.run(function angularRun($rootScope,  $timeout, $mdSidenav, $log) {
+    _app.run(function angularRun($rootScope, $timeout, $mdSidenav, $log) {
         //把rootscope记录到xdat
         $rootScope.xargs = {
             id: 'root',
@@ -62,12 +62,12 @@ var _app = {}; //最高全局变量，angular
         _fns.initCtrlr($rootScope, undefined, 'root', true);
 
         //使用锚点跳转控制器
-        $(window).on('hashchange', function (evt) {
+        $(window).on('hashchange', function(evt) {
             _fns.changeCtrlrByHash();
         });
 
         //通过锚点跳转控制器的函数,模拟a标签点击
-        $rootScope.gotoCtrlr = function (ctrlrName, id, attr) {
+        $rootScope.gotoCtrlr = function(ctrlrName, id, attr) {
             var url = (ctrlrName) ? _fns.getCtrlrUrl(ctrlrName) : _fns.getCtrlrUrl(_cfg.startPage);
             if (!id) id = 'root';
             if (!attr) attr = 'curPageUrl';
@@ -76,14 +76,14 @@ var _app = {}; //最高全局变量，angular
             var adom = $('<a href="#' + id + '#' + attr + '#' + url + '">...</a>');
             adom.hide();
             $('body').append(adom);
-            setTimeout(function () {
+            setTimeout(function() {
                 adom[0].click();
                 adom.remove();
             }, 50)
         };
 
         //跳转到默认起始页控制器
-        $(document).ready(function () {
+        $(document).ready(function() {
             if (!_fns.changeCtrlrByHash()) {
                 $rootScope.gotoCtrlr();
             };
@@ -93,18 +93,10 @@ var _app = {}; //最高全局变量，angular
         $rootScope.sideNavUrl = _fns.getCtrlrUrl('doc_sideNav');
 
         //显示左侧栏
-        $rootScope.tagLeftMenu = function () {
+        $rootScope.tagLeftMenu = function() {
             console.log('>>openLeftMenu');
             $mdSidenav('left').toggle();
         };
-
-
-
-
-
-
-
-
     });
 
     _app.controller('appCtrlr', appCtrlr);
@@ -115,19 +107,22 @@ var _app = {}; //最高全局变量，angular
             id: 'app',
         };
         _fns.initCtrlr($scope, undefined, 'appCtrlr', true);
-
-
-
     };
 
     //filter：显示为html样式
     _app.filter(
         'toTrustHtml',
-        function ($sce) {
-            return function (text) {
+        function($sce) {
+            return function(text) {
                 return $sce.trustAsHtml(text);
             }
         }
     );
+
+
+
+
+
+    //end
 
 })();

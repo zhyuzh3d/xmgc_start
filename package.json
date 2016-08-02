@@ -12,7 +12,12 @@
   "author": "zhyuzh",
   "license": "ISC",
   "dependencies": {
+    "angular-animate": "^1.5.8",
+    "angular-aria": "^1.5.8",
+    "angular-material": "^1.1.0-rc.5",
+    "angular-ui-codemirror": "^0.3.0",
     "co": "^4.6.0",
+    "codemirror": "^5.17.0",
     "compress": "^0.99.0",
     "cookie": "^0.2.4",
     "crypto": "0.0.3",

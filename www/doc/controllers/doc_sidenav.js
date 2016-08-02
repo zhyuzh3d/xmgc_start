@@ -21,17 +21,17 @@
 
         $scope.menus = [
             {
-                name: '前端开发指南',
+                name: 'Web前端开发指南',
                 icon: 'fa fa-code',
                 ctrlr: 'doc_devWeb',
             }, {
-                name: '服务端开发指南',
-                icon: 'fa fa-code',
+                name: '服务器端开发指南',
+                icon: 'fa fa-cloud',
                 ctrlr: 'doc_devSvr',
-            },{
-                name: '专家使用手册',
-                icon: 'fa fa-user',
-                ctrlr: 'doc_usrPro',
+            }, {
+                name: '全部API接口',
+                icon: 'fa fa-plug',
+                ctrlr: 'doc_api',
             }
         ]
 

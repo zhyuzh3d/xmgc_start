@@ -1,0 +1,144 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'angular-aria@X.Y.Z',
+1 verbose cli   '--save' ]
+2 info using npm@3.9.5
+3 info using node@v6.2.2
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData angular-aria@X.Y.Z
+8 silly fetchNamedPackageData angular-aria
+9 silly mapToRegistry name angular-aria
+10 silly mapToRegistry using default registry
+11 silly mapToRegistry registry https://registry.npmjs.org/
+12 silly mapToRegistry data Result {
+12 silly mapToRegistry   raw: 'angular-aria',
+12 silly mapToRegistry   scope: null,
+12 silly mapToRegistry   name: 'angular-aria',
+12 silly mapToRegistry   rawSpec: '',
+12 silly mapToRegistry   spec: 'latest',
+12 silly mapToRegistry   type: 'tag' }
+13 silly mapToRegistry uri https://registry.npmjs.org/angular-aria
+14 verbose request uri https://registry.npmjs.org/angular-aria
+15 verbose request no auth needed
+16 info attempt registry request try #1 at 21:31:58
+17 verbose request id 06b4e202b6301772
+18 verbose etag "ES5VJHQGN0U3II65POPO85G04"
+19 http request GET https://registry.npmjs.org/angular-aria
+20 http 304 https://registry.npmjs.org/angular-aria
+21 verbose headers { date: 'Tue, 02 Aug 2016 13:31:41 GMT',
+21 verbose headers   via: '1.1 varnish',
+21 verbose headers   'cache-control': 'max-age=300',
+21 verbose headers   etag: '"ES5VJHQGN0U3II65POPO85G04"',
+21 verbose headers   age: '107',
+21 verbose headers   connection: 'keep-alive',
+21 verbose headers   'x-served-by': 'cache-ams4140-AMS',
+21 verbose headers   'x-cache': 'HIT',
+21 verbose headers   'x-cache-hits': '1',
+21 verbose headers   'x-timer': 'S1470144701.648214,VS0,VE0',
+21 verbose headers   vary: 'Accept-Encoding' }
+22 silly get cb [ 304,
+22 silly get   { date: 'Tue, 02 Aug 2016 13:31:41 GMT',
+22 silly get     via: '1.1 varnish',
+22 silly get     'cache-control': 'max-age=300',
+22 silly get     etag: '"ES5VJHQGN0U3II65POPO85G04"',
+22 silly get     age: '107',
+22 silly get     connection: 'keep-alive',
+22 silly get     'x-served-by': 'cache-ams4140-AMS',
+22 silly get     'x-cache': 'HIT',
+22 silly get     'x-cache-hits': '1',
+22 silly get     'x-timer': 'S1470144701.648214,VS0,VE0',
+22 silly get     vary: 'Accept-Encoding' } ]
+23 verbose etag https://registry.npmjs.org/angular-aria from cache
+24 verbose get saving angular-aria to C:\Users\杰\AppData\Roaming\npm-cache\registry.npmjs.org\angular-aria\.cache.json
+25 verbose correctMkdir C:\Users\杰\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+26 silly fetchNamedPackageData No valid target from cache, forcing network
+27 verbose request uri https://registry.npmjs.org/angular-aria
+28 verbose request no auth needed
+29 info attempt registry request try #1 at 21:32:00
+30 http request GET https://registry.npmjs.org/angular-aria
+31 http 200 https://registry.npmjs.org/angular-aria
+32 verbose headers { server: 'CouchDB/1.6.1 (Erlang OTP/R16B03)',
+32 verbose headers   etag: '"ES5VJHQGN0U3II65POPO85G04"',
+32 verbose headers   'content-type': 'application/json',
+32 verbose headers   'content-encoding': 'gzip',
+32 verbose headers   'cache-control': 'max-age=300',
+32 verbose headers   'content-length': '9142',
+32 verbose headers   'accept-ranges': 'bytes',
+32 verbose headers   date: 'Tue, 02 Aug 2016 13:31:42 GMT',
+32 verbose headers   via: '1.1 varnish',
+32 verbose headers   age: '107',
+32 verbose headers   connection: 'keep-alive',
+32 verbose headers   'x-served-by': 'cache-ams4140-AMS',
+32 verbose headers   'x-cache': 'HIT',
+32 verbose headers   'x-cache-hits': '2',
+32 verbose headers   'x-timer': 'S1470144702.043488,VS0,VE0',
+32 verbose headers   vary: 'Accept-Encoding' }
+33 silly get cb [ 200,
+33 silly get   { server: 'CouchDB/1.6.1 (Erlang OTP/R16B03)',
+33 silly get     etag: '"ES5VJHQGN0U3II65POPO85G04"',
+33 silly get     'content-type': 'application/json',
+33 silly get     'content-encoding': 'gzip',
+33 silly get     'cache-control': 'max-age=300',
+33 silly get     'content-length': '9142',
+33 silly get     'accept-ranges': 'bytes',
+33 silly get     date: 'Tue, 02 Aug 2016 13:31:42 GMT',
+33 silly get     via: '1.1 varnish',
+33 silly get     age: '107',
+33 silly get     connection: 'keep-alive',
+33 silly get     'x-served-by': 'cache-ams4140-AMS',
+33 silly get     'x-cache': 'HIT',
+33 silly get     'x-cache-hits': '2',
+33 silly get     'x-timer': 'S1470144702.043488,VS0,VE0',
+33 silly get     vary: 'Accept-Encoding' } ]
+34 verbose get saving angular-aria to C:\Users\杰\AppData\Roaming\npm-cache\registry.npmjs.org\angular-aria\.cache.json
+35 verbose correctMkdir C:\Users\杰\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+36 silly fetchPackageMetaData Error: No compatible version found: angular-aria@X.Y.Z
+36 silly fetchPackageMetaData Valid install targets:
+36 silly fetchPackageMetaData 1.5.8, 1.5.7, 1.5.6, 1.5.5, 1.5.3, 1.5.2, 1.5.1, 1.5.0, 1.5.0-rc.2, 1.5.0-rc.1, 1.5.0-rc.0, 1.5.0-beta.2, 1.5.0-beta.0, 1.4.12, 1.4.11, 1.4.10, 1.4.9, 1.4.8, 1.4.7, 1.4.6, 1.4.5, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.4.0-rc.2, 1.4.0-rc.1, 1.4.0-rc.0, 1.4.0-beta.6, 1.4.0-beta.5, 1.4.0-beta.4, 1.4.0-beta.3, 1.4.0-beta.2, 1.4.0-beta.1, 1.4.0-beta.0, 1.3.20, 1.3.19, 1.3.18, 1.3.17, 1.3.16, 1.3.15, 1.3.14, 1.3.13, 1.3.12, 1.3.11, 1.3.10, 1.3.9, 1.3.8, 1.3.7, 1.3.6, 1.3.5, 1.3.4, 1.3.3, 1.3.2, 1.3.1, 1.3.0, 1.3.0-rc.5
+36 silly fetchPackageMetaData
+36 silly fetchPackageMetaData     at pickVersionFromRegistryDocument (C:\Program Files\nodejs\node_modules\npm\lib\fetch-package-metadata.js:170:16)
+36 silly fetchPackageMetaData     at C:\Program Files\nodejs\node_modules\npm\node_modules\iferr\index.js:13:50
+36 silly fetchPackageMetaData     at C:\Program Files\nodejs\node_modules\npm\lib\utils\pulse-till-done.js:19:8
+36 silly fetchPackageMetaData     at saved (C:\Program Files\nodejs\node_modules\npm\lib\cache\caching-client.js:174:7)
+36 silly fetchPackageMetaData     at C:\Program Files\nodejs\node_modules\npm\node_modules\graceful-fs\polyfills.js:210:7
+36 silly fetchPackageMetaData     at FSReqWrap.oncomplete (fs.js:117:15)
+36 silly fetchPackageMetaData  error for angular-aria@X.Y.Z Error: No compatible version found: angular-aria@X.Y.Z
+36 silly fetchPackageMetaData Valid install targets:
+36 silly fetchPackageMetaData 1.5.8, 1.5.7, 1.5.6, 1.5.5, 1.5.3, 1.5.2, 1.5.1, 1.5.0, 1.5.0-rc.2, 1.5.0-rc.1, 1.5.0-rc.0, 1.5.0-beta.2, 1.5.0-beta.0, 1.4.12, 1.4.11, 1.4.10, 1.4.9, 1.4.8, 1.4.7, 1.4.6, 1.4.5, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.4.0-rc.2, 1.4.0-rc.1, 1.4.0-rc.0, 1.4.0-beta.6, 1.4.0-beta.5, 1.4.0-beta.4, 1.4.0-beta.3, 1.4.0-beta.2, 1.4.0-beta.1, 1.4.0-beta.0, 1.3.20, 1.3.19, 1.3.18, 1.3.17, 1.3.16, 1.3.15, 1.3.14, 1.3.13, 1.3.12, 1.3.11, 1.3.10, 1.3.9, 1.3.8, 1.3.7, 1.3.6, 1.3.5, 1.3.4, 1.3.3, 1.3.2, 1.3.1, 1.3.0, 1.3.0-rc.5
+36 silly fetchPackageMetaData
+36 silly fetchPackageMetaData     at pickVersionFromRegistryDocument (C:\Program Files\nodejs\node_modules\npm\lib\fetch-package-metadata.js:170:16)
+36 silly fetchPackageMetaData     at C:\Program Files\nodejs\node_modules\npm\node_modules\iferr\index.js:13:50
+36 silly fetchPackageMetaData     at C:\Program Files\nodejs\node_modules\npm\lib\utils\pulse-till-done.js:19:8
+36 silly fetchPackageMetaData     at saved (C:\Program Files\nodejs\node_modules\npm\lib\cache\caching-client.js:174:7)
+36 silly fetchPackageMetaData     at C:\Program Files\nodejs\node_modules\npm\node_modules\graceful-fs\polyfills.js:210:7
+36 silly fetchPackageMetaData     at FSReqWrap.oncomplete (fs.js:117:15)
+37 silly rollbackFailedOptional Starting
+38 silly rollbackFailedOptional Finishing
+39 silly runTopLevelLifecycles Starting
+40 silly runTopLevelLifecycles Finishing
+41 silly install printInstalled
+42 verbose stack Error: No compatible version found: angular-aria@X.Y.Z
+42 verbose stack Valid install targets:
+42 verbose stack 1.5.8, 1.5.7, 1.5.6, 1.5.5, 1.5.3, 1.5.2, 1.5.1, 1.5.0, 1.5.0-rc.2, 1.5.0-rc.1, 1.5.0-rc.0, 1.5.0-beta.2, 1.5.0-beta.0, 1.4.12, 1.4.11, 1.4.10, 1.4.9, 1.4.8, 1.4.7, 1.4.6, 1.4.5, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.4.0-rc.2, 1.4.0-rc.1, 1.4.0-rc.0, 1.4.0-beta.6, 1.4.0-beta.5, 1.4.0-beta.4, 1.4.0-beta.3, 1.4.0-beta.2, 1.4.0-beta.1, 1.4.0-beta.0, 1.3.20, 1.3.19, 1.3.18, 1.3.17, 1.3.16, 1.3.15, 1.3.14, 1.3.13, 1.3.12, 1.3.11, 1.3.10, 1.3.9, 1.3.8, 1.3.7, 1.3.6, 1.3.5, 1.3.4, 1.3.3, 1.3.2, 1.3.1, 1.3.0, 1.3.0-rc.5
+42 verbose stack
+42 verbose stack     at pickVersionFromRegistryDocument (C:\Program Files\nodejs\node_modules\npm\lib\fetch-package-metadata.js:170:16)
+42 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\iferr\index.js:13:50
+42 verbose stack     at C:\Program Files\nodejs\node_modules\npm\lib\utils\pulse-till-done.js:19:8
+42 verbose stack     at saved (C:\Program Files\nodejs\node_modules\npm\lib\cache\caching-client.js:174:7)
+42 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\graceful-fs\polyfills.js:210:7
+42 verbose stack     at FSReqWrap.oncomplete (fs.js:117:15)
+43 verbose cwd D:\zhOneDrive\xmgc_start
+44 error Windows_NT 10.0.10586
+45 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "angular-aria@X.Y.Z" "--save"
+46 error node v6.2.2
+47 error npm  v3.9.5
+48 error No compatible version found: angular-aria@X.Y.Z
+48 error Valid install targets:
+48 error 1.5.8, 1.5.7, 1.5.6, 1.5.5, 1.5.3, 1.5.2, 1.5.1, 1.5.0, 1.5.0-rc.2, 1.5.0-rc.1, 1.5.0-rc.0, 1.5.0-beta.2, 1.5.0-beta.0, 1.4.12, 1.4.11, 1.4.10, 1.4.9, 1.4.8, 1.4.7, 1.4.6, 1.4.5, 1.4.4, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.4.0-rc.2, 1.4.0-rc.1, 1.4.0-rc.0, 1.4.0-beta.6, 1.4.0-beta.5, 1.4.0-beta.4, 1.4.0-beta.3, 1.4.0-beta.2, 1.4.0-beta.1, 1.4.0-beta.0, 1.3.20, 1.3.19, 1.3.18, 1.3.17, 1.3.16, 1.3.15, 1.3.14, 1.3.13, 1.3.12, 1.3.11, 1.3.10, 1.3.9, 1.3.8, 1.3.7, 1.3.6, 1.3.5, 1.3.4, 1.3.3, 1.3.2, 1.3.1, 1.3.0, 1.3.0-rc.5
+49 error If you need help, you may report this error at:
+49 error     <https://github.com/npm/npm/issues>
+50 verbose exit [ 1, true ]
