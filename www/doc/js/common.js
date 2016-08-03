@@ -10,7 +10,7 @@ var _xdat = {}; //共享变量
     'use strict';
 
     //初始页面,
-    _cfg.startPage = 'doc_api';
+    _cfg.startPage = 'doc_devWeb';
 
     //如果地址栏传递page参数进来，那么 autoStartPage 函数会覆盖startPage
     _fns.autoStartPage = function () {

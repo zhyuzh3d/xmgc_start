@@ -1,6 +1,6 @@
 //顶部导航控制器
 (function() {
-    var ctrlrName = 'login';
+    var ctrlrName = 'acc_login';
 
     angular.module('app').controller(ctrlrName, fn);
 

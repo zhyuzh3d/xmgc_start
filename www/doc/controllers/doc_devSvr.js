@@ -27,25 +27,13 @@
             var api = 'http://m.xmgc360.com/main/api/getConf';
             $.get(api, function (res) {
                 console.log('GET', api, null, res);
-                var mainjo = $('#mainConfTa');
-                var maintar = mainjo[0];
-                var mainstr = '读取失败，请稍后再试';
-                var modulejo = $('#moduleConfTa');
-                var moduletar = modulejo[0];
-                var modluestr = '读取失败，请稍后再试';
 
                 if (res.code == 1) {
-                    $scope.mainConf = res.data.mainConf;
-                    mainstr = res.data.mainConf;
-                    modulestr = res.data.moduleConf;
+                    _fns.applyScope($scope,function(){
+                        $scope.mainConf = res.data.mainConf;
+                        $scope.moduleConf = res.data.moduleConf;
+                    });
                 };
-
-                $scope.$apply(function () {
-                    mainjo.val(mainstr);
-                    modulejo.val(modulestr);
-                });
-                maintar.style.height = (maintar.scrollHeight + 4) + 'px';
-                moduletar.style.height = (moduletar.scrollHeight + 4) + 'px';
             });
         };
         $scope.getMainConf();

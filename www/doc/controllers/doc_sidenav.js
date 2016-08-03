@@ -29,7 +29,7 @@
                 icon: 'fa fa-cloud',
                 ctrlr: 'doc_devSvr',
             }, {
-                name: '全部API接口',
+                name: '所有模块的API接口',
                 icon: 'fa fa-plug',
                 ctrlr: 'doc_api',
             }

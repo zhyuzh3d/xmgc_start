@@ -1,0 +1,20 @@
+{
+    "name": "doc",
+    "path": "start/web/doc/",
+    "author": "zhyuzh",
+    "time": "2016-09-03 09:52",
+    "pages": [{
+        "name": "api",
+        "desc": "所有模块接口说明",
+        "url": "?page=doc_api"
+    },{
+        "name": "devSvr",
+        "desc": "服务端开发者向导",
+        "url": "?page=doc_devSvr"
+    },{
+        "name": "devWeb",
+        "desc": "Web前端开发者向导",
+        "url": "?page=doc_devWeb"
+    }],
+    "apis": []
+}
