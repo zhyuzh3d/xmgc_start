@@ -16,10 +16,14 @@
 </head>
 
 <body>
-    <div id='appBox' class='container-fluid' md-swipe-right="$root.tagLeftMenu()" md-swipe-left="$root.tagLeftMenu()" layout layout-align='start stretch' style="height:100%">
-        <!--    页面内容-->
-        <div id='sideNav' flex-gt-sm='25' ng-include='$root.sideNavUrl' style='height:100%'>...</div>
-        <div id='curPage' flex-gt-sm='75' flex='grow' ng-include='$root.curPageUrl' style='height:100%;overflow-y:auto'>...</div>
+    <div layout='column'>
+        <div style='display:flex'>
+            <div class='visible-md visible-lg' style='height:49px;'></div>
+        </div>
+        <div id='appBox' layout layout-align='start start' class='container-fluid' md-swipe-right="$root.tagLeftMenu()" md-swipe-left="$root.tagLeftMenu()"  style="width:100%">
+            <div id='sideNav' flex-gt-sm='25' ng-include='$root.sideNavUrl' ng-style='{height:scrHei-50+"px"}' >...</div>
+            <div id='curPage' flex='grow' ng-include='$root.curPageUrl' style='overflow-y:scroll' ng-style='{height:scrHei-50+"px"}' style="background:#00F">...</div>
+        </div>
     </div>
 
     <!--    脚本文件-->
@@ -33,6 +37,7 @@
 
     <script src="./js/common.js"></script>
     <script src="./js/app.js"></script>
+    <script src="//m.xmgc360.com/start/web/js/_xmgc.js"></script>
 </body>
 
 </html>

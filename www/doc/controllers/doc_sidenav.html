@@ -8,27 +8,28 @@
         /*内部样式，以.doc_devWeb开头*/
     </style>
     <!--控制器界面部分-->
-    <md-sidenav layout='column' md-component-id="left" class="site-sidenav md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" style='width:90%' md-whiteframe='8'>
+    <md-sidenav layout='column' md-component-id="left" class="site-sidenav md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')||$mdMedia('gt-xl')" style='width:90%' md-whiteframe='8'>
         <div md-colors='{background:"primary"}' layout-padding flex='initial'>
             <div style="font-size:2rem;color:#FFF;margin:1rem">Doc文档</div>
         </div>
-        <md-list layout='column' flex='grow' style='padding:0;width:100%' layout-align='space-between start' >
+
+        <md-list layout='column' flex='grow' style='padding:0;width:100%' layout-align='space-between start'>
             <div flex='grow' style="width:100%">
-                <md-list-item class="md-1-line" ng-repeat="item in menus" ng-click='$root.gotoCtrlr(item.ctrlr);$root.tagLeftMenu()'>
-                    <div layout-padding>
-                        <span ng-class="item.icon"></span>
-                        <span ng-bind='item.name'></span>
-                    </div>
-                </md-list-item>
+                <md-menu-item style='width:100%' ng-repeat="item in menus" ng-click='alert($root.lastCtrlr);$root.gotoCtrlr(item.ctrlr);$root.tagLeftMenu()' >
+                    <md-button ng-class="{true:'md-primary',false:''}[$root.lastCtrlr==item.ctrlr]" aria-label='menu'>
+                        <span ng-class="item.icon" style="margin-right:1rem"></span>
+                        <span ng-bind='item.name' style="font-size:1.3rem"></span>
+                    </md-button>
+                </md-menu-item>
             </div>
-            <div flex='initial' style="width:100%">
+            <div flex='initial' style="width:100%" hide-md>
                 <md-divider></md-divider>
-                <md-list-item class="md-1-line" ng-href='/'>
-                    <div layout-padding>
-                        <span class='fa fa-home'></span>
-                        <span>返回项目工场首页</span>
-                    </div>
-                </md-list-item>
+                <md-menu-item style='width:100%'  ng-href='/' aria-label='backhome'>
+                    <md-button ng-click="ctrl.redial($event)">
+                        <span class='fa fa-home' style="margin-right:1rem"></span>
+                        <span  style="font-size:1.3rem">返回项目工场首页</span>
+                    </md-button>
+                </md-menu-item>
             </div>
         </md-list>
     </md-sidenav>

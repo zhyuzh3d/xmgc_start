@@ -45,18 +45,15 @@
         .doc_devWeb .chapters md-list-item {
             margin-top: 6rem;
         }
-
-        .doc_devWeb textarea{
+        .doc_devWeb textarea {
             font-family: simhei;
             font-size: 1.25rem;
             white-space: pre;
             overflow-x: hidden;
-
         }
-
     </style>
     <div layout-padding>
-        <md-button hide-gt-sm class="md-icon-button" ng-click="$root.tagLeftMenu()" style='margin-left:0'>
+        <md-button hide-gt-sm class="md-icon-button" ng-click="$root.tagLeftMenu()" style='margin-left:0' aria-label='tagleft'>
             <span class="fa fa-bars fa-lg"></span>
         </md-button>
         <!--控制器界面部分-->
@@ -70,12 +67,12 @@
             </md-list-item>
             <md-list-item li ng-click='goto("xinxi")'><a href=''>模块信息文件</a>
             </md-list-item>
-            <md-list-item li ng-click='goto("daohang")'><a href=''>底部导航栏</a>
+            <md-list-item li ng-click='goto("daohang")'><a href=''>使用同一导航栏</a>
             </md-list-item>
         </md-list>
         <br>
         <md-list style='padding:0'>
-            <md-list-item li ng-click='goto("yangshi")'>
+            <md-list-item li ng-click='goto("yangshi")' >
                 <a href='https://github.com/zhyuzh3d/xmgc_start' style='font-size:1.8rem'>
                     <span class="fa fa-github fa-lg"></span>
                     <span>请在github.com上搜索xmgc_start项目</span>
@@ -141,16 +138,22 @@
                 </tip>
                 <p>具体内容格式参照下面account模块的信息文件,首先包含了name模块名,path模块路径,author模块作者,time模块最后更新时间等模块信息，然后包含了pages和apis两个数组对象，详细列出了这个模块提供可访问的页面地址和可响应的接口地址。</p>
                 <md-input-container class="md-block" style="background:#EEE;padding:8px 15px;width:100%;">
-                    <textarea ng-model="accinfo" md-no-resize readonly="readonly"></textarea>
+                    <textarea ng-model="accinfo" md-no-resize readonly="readonly" aria-label='info'></textarea>
                 </md-input-container>
             </md-list-item>
 
             <md-list-item id='daohang' layout='column' layout-align='start start'>
-                <h4>底部统一导航</h4>
-                <p>建议每个模块或子模块的首页都应展现统一的底部导航栏，请在index.html加入以下代码</p>
-                <tip>&lt;script src="//m.xmgc360.com/start/web/js/_xmgc.js"&gt;&lt;/script&gt;</tip>
+                <h4>使用统一的导航</h4>
+                <p>建议每个模块或子模块的首页都应展现统一的导航栏，导航栏分为顶部导航栏（大于或等于md屏幕宽度自动显示）和底部导航栏（低于md屏幕宽度时自动显示），请在index.html加入以下代码</p>
+                <tip>
+                    <p>&lt;script&gt;
+                    &nbsp;&nbsp;if (!_xmgc) var _xmgc = {};
+                    &nbsp;&nbsp;_xmgc.useNavBar = 'top';//可以是top,bot,both(默认)
+                    &lt;/script&gt;
+                    &lt;script src="//m.xmgc360.com/start/web/js/_xmgc.js"&gt;&lt;/script&gt;</p>
+                </tip>
                 <p>模块的任何一个页面都应有明显的按钮或链接指向模块首页或站点首页m.xmgc360.com.</p>
-                <tip>如果没有引用底部统一的导航栏，推荐使用左侧抽屉侧栏进行导航各个子页面，同时添加指向站点首页的链接，比如本页（点击最顶部左上角菜单按钮，或在移动设备屏幕上快速向右划动）。</tip>
+                <tip>如果没有引用统一的导航栏，推荐使用左侧抽屉侧栏进行导航各个子页面，同时添加指向站点首页的链接，比如本页（点击最顶部左上角菜单按钮，或在移动设备屏幕上快速向右划动）。</tip>
 
             </md-list-item>
 

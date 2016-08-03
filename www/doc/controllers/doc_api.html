@@ -3,7 +3,8 @@
 </script>
 
 <!--控制器界面部分-->
-<div id='doc_api' ng-controller='doc_api' class='container-fluid doc_api doc_ctrlr' ng-cloak>
+<div id='doc_api' ng-controller='doc_api' class='container-fluid doc_api doc_ctrlr' flex='grow'>
+
     <style>
         /*内部样式，以.doc_devWeb开头*/
         .doc_api .chapter {
@@ -58,179 +59,183 @@
         }
     </style>
 
-    <div layout='column' style='width:100%'>
-        <!--        顶部菜单-->
-        <div layout='row' style='width:100%'>
-            <div layout class="md-toolbar-tools" layout-align="space-between center">
-                <md-button flex='nogrow' hide-gt-sm class="md-icon-button" ng-click="$root.tagLeftMenu()" style='margin-left:0;'>
-                    <span class="fa fa-bars fa-lg"></span>
-                </md-button>
-                <md-input-container flex='60'>
-                    <md-select ng-model="selectedModule" ng-change="loadModuleInfo()">
-                        <md-optgroup label="请选择模块">
-                            <md-option ng-value="item" ng-repeat="item in moduleList" ng-bind='item'></md-option>
-                        </md-optgroup>
-                    </md-select>
-                </md-input-container>
+    <!--        顶部菜单-->
+    <div layout>
+        <div layout class="md-toolbar-tools" layout-align="space-between center" style="padding:8px">
+            <md-button flex='nogrow' hide-gt-sm class="md-icon-button" ng-click="$root.tagLeftMenu()" style='margin-left:0;' aria-label='tagleft'>
+                <span class="fa fa-bars fa-lg"></span>
+            </md-button>
+            <md-input-container flex='60'>
+                <md-select ng-model="selectedModule" ng-change="loadModuleInfo()" aria-label='selmod'>
+                    <md-optgroup label="请选择模块">
+                        <md-option ng-value="item" ng-repeat="item in moduleList" ng-bind='item'></md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
 
-            </div>
-        </div>
-        <!--            主体内容-->
-        <div layout='column' style='width:100%'>
-            <div class='chapter' ng-bind='"模块 | "+curModule.name' style="background:#A7FFEB"></div>
-            <div layout-padding>
-                <div layout>
-                    <p class="lb" flex='20'>路径:</p>
-                    <p flex='80' ng-bind='curModule.path'></p>
-                </div>
-                <div layout>
-                    <p class="lb" flex='20'>贡献者:</p>
-                    <p flex='80' ng-bind='curModule.author'></p>
-                </div>
-                <div layout>
-                    <p class="lb" flex='20'>更新:</p>
-                    <p flex='80' ng-bind='curModule.time'></p>
-                </div>
-            </div>
-            <div class='chapter' ng-show='curModule.subModuleInfo'>子模块列表</div>
-            <div layout='column' ng-repeat='subitem in curModule.subModuleInfo track by $index' layout-padding>
-                <div class='submod' ng-bind='"子模块 | "+subitem.name'></div>
-                <div layout>
-                    <p class="lb" flex='20'>路径:</p>
-                    <p flex='80' ng-bind='subitem.path'></p>
-                </div>
-                <div layout>
-                    <p class="lb" flex='20'>贡献者:</p>
-                    <p flex='80' ng-bind='subitem.author'></p>
-                </div>
-                <div layout>
-                    <p class="lb" flex='20'>更新:</p>
-                    <p flex='80' ng-bind='subitem.time'></p>
-                </div>
-                <div ng-show='subitem.pages'>
-                    <h4>子模块页面列表</h4>
-                    <div layout='column' ng-repeat='pg in subitem.pages'>
-                        <div class="subpage" ng-bind='"子模块页面 | "+pg.name'></div>
-                        <div class="ln" layout>
-                            <p class="lb" flex='20'>功能：</p>
-                            <p flex='80' ng-bind='pg.desc'></p>
-                        </div>
-                        <div class="ln" layout>
-                            <p class="lb" flex='20'>地址：</p>
-                            <p flex='80' ng-bind='subitem.path+pg.url'></p>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div ng-show='subitem.apis'>
-                    <h4>子模块API列表</h4>
-                    <div layout='column' ng-repeat='item in subitem.apis' layout-padding>
-                        <div class='api' ng-bind='"子模块接口 | "+item.name'></div>
-                        <div class="ln" layout ng-show='item.author'>
-                            <p class="lb" flex='20'>作者：</p>
-                            <p flex='80' ng-bind='item.author'></p>
-                        </div>
-                        <div class="ln" layout>
-                            <p class="lb" flex='20'>路径：</p>
-                            <p flex='80' ng-bind='subitem.path+"api/"+item.name'></p>
-                        </div>
-                        <div class="ln" layout>
-                            <p class="lb" flex='20'>功能：</p>
-                            <p flex='80' ng-bind='item.desc'></p>
-                        </div>
-                        <div class="ln" layout>
-                            <p class="lb" flex='20'>方法：</p>
-                            <p flex='80' ng-bind='item.method | json'></p>
-                        </div>
-                        <div class="ln" layout ng-show='item.reqDat && item.reqDat!="undefined"'>
-                            <p flex='20'>提交：</p>
-                            <div flex='80'>
-                                <div class="sln" layout ng-repeat='(key,val) in item.reqDat track by $index'>
-                                    <p class="lb" flex='20' ng-bind='key'></p>
-                                    <p flex='80' ng-bind='val'></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ln" layout ng-show='item.respDat && item.respDat!="undefined"'>
-                            <p flex='20'>返回：</p>
-                            <div flex='80'>
-                                <div class="sln" layout ng-repeat='(key,val) in item.respDat track by $index'>
-                                    <p class="lb" flex='30' ng-bind='key'></p>
-                                    <p flex='70' ng-bind='val'></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ln" layout ng-show='item.tip'>
-                            <p class="lb" flex='20'>提示：</p>
-                            <p flex='80' ng-bind='item.tip'></p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class='chapter' ng-show='curModule.pages'>页面列表</div>
-        <div layout='column' ng-repeat='pg in curModule.pages' layout-padding>
-            <div class="subpage" ng-bind='"页面 | "+pg.name'></div>
-            <div class="ln" layout>
-                <p class="lb" flex='20'>功能：</p>
-                <p flex='80' ng-bind='pg.desc'></p>
-            </div>
-            <div class="ln" layout>
-                <p class="lb" flex='20'>地址：</p>
-                <p flex='80' ng-bind='item.path+pg.url'></p>
-            </div>
-        </div>
-
-        <div class='chapter' ng-show='curModule.apis'>接口列表API</div>
-        <div layout='column' ng-repeat='item in curModule.apis' layout-padding>
-            <div class='api' ng-bind='"接口 | "+item.name'></div>
-            <div class="ln" layout ng-show='item.author'>
-                <p class="lb" flex='20'>作者：</p>
-                <p flex='80' ng-bind='item.author'></p>
-            </div>
-            <div class="ln" layout>
-                <p class="lb" flex='20'>路径：</p>
-                <p flex='80' ng-bind='curModule.path+"api/"+item.name'></p>
-            </div>
-            <div class="ln" layout>
-                <p class="lb" flex='20'>功能：</p>
-                <p flex='80' ng-bind='item.desc'></p>
-            </div>
-            <div class="ln" layout>
-                <p class="lb" flex='20'>方法：</p>
-                <p flex='80' ng-bind='item.method | json'></p>
-            </div>
-            <div class="ln" layout ng-show='item.reqDat && item.reqDat!="undefined"'>
-                <p flex='20'>提交：</p>
-                <div flex='80'>
-                    <div class="sln" layout ng-repeat='(key,val) in item.reqDat track by $index'>
-                        <p class="lb" flex='20' ng-bind='key'></p>
-                        <p flex='80' ng-bind='val'></p>
-                    </div>
-                </div>
-            </div>
-            <div class="ln" layout ng-show='item.respDat && item.respDat!="undefined"'>
-                <p flex='20'>返回：</p>
-                <div flex='80'>
-                    <div class="sln" layout ng-repeat='(key,val) in item.respDat track by $index'>
-                        <p class="lb" flex='30' ng-bind='key'></p>
-                        <p flex='70' ng-bind='val'></p>
-                    </div>
-                </div>
-            </div>
-            <div class="ln" layout ng-show='item.tip'>
-                <p class="lb" flex='20'>提示：</p>
-                <p flex='80' ng-bind='item.tip'></p>
-            </div>
         </div>
     </div>
+
+
+
+    <!--            主体内容-->
+    <div layout='column' style='width:100%'>
+        <div class='chapter' ng-bind='"模块 | "+curModule.name' style="background:#A7FFEB"></div>
+        <div layout-padding>
+            <div layout>
+                <p class="lb" flex='20'>路径:</p>
+                <p flex='80' ng-bind='curModule.path'></p>
+            </div>
+            <div layout>
+                <p class="lb" flex='20'>贡献者:</p>
+                <p flex='80' ng-bind='curModule.author'></p>
+            </div>
+            <div layout>
+                <p class="lb" flex='20'>更新:</p>
+                <p flex='80' ng-bind='curModule.time'></p>
+            </div>
+        </div>
+        <div class='chapter' ng-show='curModule.subModuleInfo'>子模块列表</div>
+        <div layout='column' ng-repeat='subitem in curModule.subModuleInfo track by $index' layout-padding>
+            <div class='submod' ng-bind='"子模块 | "+subitem.name'></div>
+            <div layout>
+                <p class="lb" flex='20'>路径:</p>
+                <p flex='80' ng-bind='subitem.path'></p>
+            </div>
+            <div layout>
+                <p class="lb" flex='20'>贡献者:</p>
+                <p flex='80' ng-bind='subitem.author'></p>
+            </div>
+            <div layout>
+                <p class="lb" flex='20'>更新:</p>
+                <p flex='80' ng-bind='subitem.time'></p>
+            </div>
+            <div ng-show='subitem.pages'>
+                <h4>子模块页面列表</h4>
+                <div layout='column' ng-repeat='pg in subitem.pages'>
+                    <div class="subpage" ng-bind='"子模块页面 | "+pg.name'></div>
+                    <div class="ln" layout>
+                        <p class="lb" flex='20'>功能：</p>
+                        <p flex='80' ng-bind='pg.desc'></p>
+                    </div>
+                    <div class="ln" layout>
+                        <p class="lb" flex='20'>地址：</p>
+                        <p flex='80' ng-bind='subitem.path+pg.url'></p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div ng-show='subitem.apis'>
+                <h4>子模块API列表</h4>
+                <div layout='column' ng-repeat='item in subitem.apis' layout-padding>
+                    <div class='api' ng-bind='"子模块接口 | "+item.name'></div>
+                    <div class="ln" layout ng-show='item.author'>
+                        <p class="lb" flex='20'>作者：</p>
+                        <p flex='80' ng-bind='item.author'></p>
+                    </div>
+                    <div class="ln" layout>
+                        <p class="lb" flex='20'>路径：</p>
+                        <p flex='80' ng-bind='subitem.path+"api/"+item.name'></p>
+                    </div>
+                    <div class="ln" layout>
+                        <p class="lb" flex='20'>功能：</p>
+                        <p flex='80' ng-bind='item.desc'></p>
+                    </div>
+                    <div class="ln" layout>
+                        <p class="lb" flex='20'>方法：</p>
+                        <p flex='80' ng-bind='item.method | json'></p>
+                    </div>
+                    <div class="ln" layout ng-show='item.reqDat && item.reqDat!="undefined"'>
+                        <p flex='20'>提交：</p>
+                        <div flex='80'>
+                            <div class="sln" layout ng-repeat='(key,val) in item.reqDat track by $index'>
+                                <p class="lb" flex='20' ng-bind='key'></p>
+                                <p flex='80' ng-bind='val'></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ln" layout ng-show='item.respDat && item.respDat!="undefined"'>
+                        <p flex='20'>返回：</p>
+                        <div flex='80'>
+                            <div class="sln" layout ng-repeat='(key,val) in item.respDat track by $index'>
+                                <p class="lb" flex='30' ng-bind='key'></p>
+                                <p flex='70' ng-bind='val'></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ln" layout ng-show='item.tip'>
+                        <p class="lb" flex='20'>提示：</p>
+                        <p flex='80' ng-bind='item.tip'></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div flex class='chapter' ng-show='curModule.pages'>页面列表</div>
+    <div flex layout='column' ng-repeat='pg in curModule.pages' layout-padding>
+        <div class="subpage" ng-bind='"页面 | "+pg.name'></div>
+        <div class="ln" layout>
+            <p class="lb" flex='20'>功能：</p>
+            <p flex='80' ng-bind='pg.desc'></p>
+        </div>
+        <div class="ln" layout>
+            <p class="lb" flex='20'>地址：</p>
+            <p flex='80' ng-bind='item.path+pg.url'></p>
+        </div>
+    </div>
+
+    <div flex class='chapter' ng-show='curModule.apis'>接口列表API</div>
+    <div layout='column' ng-repeat='item in curModule.apis' layout-padding>
+        <div class='api' ng-bind='"接口 | "+item.name'></div>
+        <div class="ln" layout ng-show='item.author'>
+            <p class="lb" flex='20'>作者：</p>
+            <p flex='80' ng-bind='item.author'></p>
+        </div>
+        <div class="ln" layout>
+            <p class="lb" flex='20'>路径：</p>
+            <p flex='80' ng-bind='curModule.path+"api/"+item.name'></p>
+        </div>
+        <div class="ln" layout>
+            <p class="lb" flex='20'>功能：</p>
+            <p flex='80' ng-bind='item.desc'></p>
+        </div>
+        <div class="ln" layout>
+            <p class="lb" flex='20'>方法：</p>
+            <p flex='80' ng-bind='item.method | json'></p>
+        </div>
+        <div class="ln" layout ng-show='item.reqDat && item.reqDat!="undefined"'>
+            <p flex='20'>提交：</p>
+            <div flex='80'>
+                <div class="sln" layout ng-repeat='(key,val) in item.reqDat track by $index'>
+                    <p class="lb" flex='20' ng-bind='key'></p>
+                    <p flex='80' ng-bind='val'></p>
+                </div>
+            </div>
+        </div>
+        <div class="ln" layout ng-show='item.respDat && item.respDat!="undefined"'>
+            <p flex='20'>返回：</p>
+            <div flex='80'>
+                <div class="sln" layout ng-repeat='(key,val) in item.respDat track by $index'>
+                    <p class="lb" flex='30' ng-bind='key'></p>
+                    <p flex='70' ng-bind='val'></p>
+                </div>
+            </div>
+        </div>
+        <div class="ln" layout ng-show='item.tip'>
+            <p class="lb" flex='20'>提示：</p>
+            <p flex='80' ng-bind='item.tip'></p>
+        </div>
+    </div>
+
+
     <!--    页脚内容-->
     <div flex class="container" style="margin:5rem 1rem 10rem 2rem">
         <small style="color:#AAA">contributor is zhyuzh | QQ:286052520</small>
     </div>
+
 </div>
 
 

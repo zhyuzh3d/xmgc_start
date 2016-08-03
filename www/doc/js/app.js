@@ -67,23 +67,42 @@ var _app = {}; //最高全局变量，angular
         });
 
         //通过锚点跳转控制器的函数,模拟a标签点击
+        $rootScope.lastCtrlr; //上一个跳转的控制器
+        $rootScope.ctlrHis = []; //上一个跳转的控制器
+
         $rootScope.gotoCtrlr = function(ctrlrName, id, attr) {
-            var url = (ctrlrName) ? _fns.getCtrlrUrl(ctrlrName) : _fns.getCtrlrUrl(_cfg.startPage);
+            if (!ctrlrName || ctrlrName == '') {
+                ctrlrName = _cfg.startPage;
+            }
+            var url = _fns.getCtrlrUrl(ctrlrName);
+            if (!url) return;
+
             if (!id) id = 'root';
             if (!attr) attr = 'curPageUrl';
 
+            $rootScope.lastCtrlr = ctrlrName;
+            $rootScope.ctlrHis.push(ctrlrName);
+
             //模拟a标签点击，延迟50毫秒避免 $apply 进程报错
-            var adom = $('<a href="#' + id + '#' + attr + '#' + url + '">...</a>');
+            var adom = $('<a href="#' + id + '#' + attr + '#@' + ctrlrName + '">...</a>');
             adom.hide();
             $('body').append(adom);
             setTimeout(function() {
                 adom[0].click();
                 adom.remove();
-            }, 50)
+            }, 50);
         };
 
         //跳转到默认起始页控制器
         $(document).ready(function() {
+            var autohash = _fns.changeCtrlrByHash();
+
+            //自动跳转也把控制器计入历史
+            if (autohash && autohash.ctrlr) {
+                $rootScope.lastCtrlr = ctrlrName;
+                $rootScope.ctlrHis.push(ctrlrName);
+            };
+
             if (!_fns.changeCtrlrByHash()) {
                 $rootScope.gotoCtrlr();
             };
@@ -94,7 +113,6 @@ var _app = {}; //最高全局变量，angular
 
         //显示左侧栏
         $rootScope.tagLeftMenu = function() {
-            console.log('>>openLeftMenu');
             $mdSidenav('left').toggle();
         };
     });
@@ -107,6 +125,15 @@ var _app = {}; //最高全局变量，angular
             id: 'app',
         };
         _fns.initCtrlr($scope, undefined, 'appCtrlr', true);
+
+        $scope.scrHei = $(window).height();
+        $scope.scrWid = $(window).width();
+        window.onresize = function() {
+            _fns.applyScope($scope, function() {
+                $scope.scrHei = $(window).height();
+                $scope.scrWid = $(window).width();
+            })
+        }
     };
 
     //filter：显示为html样式

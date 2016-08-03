@@ -2,10 +2,6 @@
 自动创建顶部和底部元件*/
 console.log('start/_xmgc.js:loading...');
 if (!_xmgc) {
-    /**
-     * 全局变量
-     * @public
-     */
     var _xmgc = {};
 };
 
@@ -15,7 +11,7 @@ if (!_xmgc) {
     var botbtns = botbar.btns = $('<div class="nav nav-pills" style="height:100%"></div>').appendTo(botbar);
 
     //顶部导航
-    var topbar = $('<div id="topnavbar" class="navbar navbar-default nav nav-tabs .navbar-static-top xmgcNavBar visible-md visible-lg topnavbar" style="height:3rem;z-index:10;padding:0;box-shadow:0 0 2rem #AAA"></div>');
+    var topbar = $('<div id="topnavbar" class="navbar navbar-default nav nav-tabs navbar-fixed-top xmgcNavBar visible-md visible-lg topnavbar" style="height:3rem;z-index:90;padding:0;box-shadow:0 0 2rem #AAA;margin-bottom:0";></div>');
     var topbtns = topbar.btns = $('<div class="nav nav-pills" style="height:100%"></div>').appendTo(topbar);
 
 
@@ -27,9 +23,9 @@ if (!_xmgc) {
             icon: 'fa fa-home',
         },
         'start': {
-            name: '开始',
-            path: 'start/web/index.html',
-            icon: 'fa fa-tasks',
+            name: '账号',
+            path: 'start/web/account/',
+            icon: 'fa fa-user',
         },
         'doc': {
             name: '文档',
@@ -37,9 +33,9 @@ if (!_xmgc) {
             icon: 'fa fa-book',
         },
         'item1': {
-            name: '未指定',
-            path: 'start/web/welcome/undefined.html',
-            icon: 'fa fa-bookmark',
+            name: 'PIE',
+            path: 'pie/web/',
+            icon: 'fa fa-bomb',
         },
         'more': {
             name: '更多',
@@ -80,7 +76,7 @@ if (!_xmgc) {
         };
 
         //向顶部导航添加按钮
-        topbtns[attr] = $('<li style="text-align:center;margin:0;border-right:1px solid #DDD;height:100%;overflow-y:hidden;border:none"><a style="height:4rem;border-radius:0;padding:1.2rem 2rem;" href="http://m.xmgc360.com/' + mod.path + '">' + '<span class="' + mod.icon + '" style="font-size:1.5rem;margin-right:0.5rem"></span><span style="font-size:1.4rem">' + mod.name + '</span></a></li>').appendTo(topbtns);
+        topbtns[attr] = $('<li style="text-align:center;margin:0;border-right:1px solid #DDD;height:100%;overflow-y:hidden;border:none;display:flex"><a style="height:4rem;border-radius:0;padding:1.2rem 2rem;" href="http://m.xmgc360.com/' + mod.path + '">' + '<span class="' + mod.icon + '" style="font-size:1.5rem;margin-right:0.5rem"></span><span style="font-size:1.4rem">' + mod.name + '</span></a></li>').appendTo(topbtns);
 
         if (mod.act) {
             topbtns[attr].attr('class', 'active');
@@ -137,8 +133,7 @@ if (!_xmgc) {
         stl.append('.botnavbar .nav-pills li a{color: ' + clr + ';text-decoration: none;font-family:simhei}');
         stl.append('.topnavbar .nav-pills li a{color: ' + clr + ';text-decoration: none;font-family:simhei;height:100%}');
         stl.append('.xmgcNavBar .nav-pills li.active a{color: #FFF;background-color: ' + clr + ';height:100%}');
-        stl.append('.botnavbar .nav-pills li .active a:hover{color: #FFF;background-color: ' + clr + ';height:100%}');
-        stl.append('.topnavbar .nav-pills li a:hover{background-color: #EEE;height:100%}');
+        stl.append('.xmgcNavBar .nav-pills li .active a:hover{color: #FFF;background-color: ' + clr + ';height:100%}');
         _xmgc.navBarStyle = stl;
         $('body').append(_xmgc.navBarStyle);
         return _xmgc.navBarStyle;
@@ -154,18 +149,24 @@ if (!_xmgc) {
     _xmgc.addNavBar = function(str) {
         var res = [];
         res.push(_xmgc.addNavBarStyle());
-        if (str == 'bootom' || str == 'bot' || str == 'both') {
+        if (str == 'bootom' || str == 'bot') {
+            res.push(_xmgc.addBottomNavBar());
+        } else if (str == 'top') {
+            res.push(_xmgc.addTopNavBar());
+        } else if (str == 'both') {
             res.push(_xmgc.addBottomNavBar());
             res.push(_xmgc.addTopNavBar());
-        };
+        }
     };
 
 
     //自动添加导航栏，默认添加底部
-    if (_xmgc.usrNavBar == undefined) {
-        _xmgc.usrNavBar = 'both';
+    if (_xmgc.useNavBar == undefined) {
+        _xmgc.useNavBar = 'both';
     };
+
+
     $(document).ready(function() {
-        _xmgc.addNavBar(_xmgc.usrNavBar);
+        _xmgc.addNavBar(_xmgc.useNavBar);
     });
 })();

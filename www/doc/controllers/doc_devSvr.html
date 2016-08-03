@@ -41,7 +41,7 @@
         }
     </style>
     <div layout-padding>
-        <md-button hide-gt-sm class="md-icon-button" ng-click="$root.tagLeftMenu()" style='margin-left:0'>
+        <md-button hide-gt-sm class="md-icon-button" ng-click="$root.tagLeftMenu()" style='margin-left:0' aria-label='tagleft'>
             <span class="fa fa-bars fa-lg"></span>
         </md-button>
         <!--控制器界面部分-->
@@ -93,7 +93,7 @@
 
 
                 <md-input-container layout='column' class="md-block" style="background:#EEE;padding:8px 15px;width:100%">
-                    <textarea ng-model="mainConf" md-no-resize readonly="readonly"></textarea>
+                    <textarea ng-model="mainConf" md-no-resize readonly="readonly" aria-label='conf'></textarea>
                 </md-input-container>
 
                 <p></p>
@@ -152,7 +152,7 @@
                 <br>
                 <h5>供参考的模块服务器Nginx的conf设置</h5>
                 <md-input-container class="md-block" style="background:#EEE;padding:8px 15px;width:100%">
-                    <textarea ng-model="moduleConf" md-no-resize readonly="readonly"></textarea>
+                    <textarea ng-model="moduleConf" md-no-resize readonly="readonly" aria-label='conf'></textarea>
                 </md-input-container>
 
             </md-list-item>
