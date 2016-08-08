@@ -53,7 +53,7 @@ _rotr.apis.test = function() {
 
         var resdat = {
             query: ctx.query.nick,
-            body: request.body;
+            body: request.body,
         };
 
         ctx.body = __newMsg(1, 'ok', resdat);

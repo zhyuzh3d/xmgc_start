@@ -9,10 +9,10 @@ var _account = {};
  * @param {string} pw 32位Md5加密密码
  * @returns {usrObj} 用户对象
  */
-_rotr.apis.regByPhone = function() {
+_rotr.apis.regByPhone = function () {
     var ctx = this;
 
-    var co = $co(function * () {
+    var co = $co(function* () {
         var phone = ctx.query.phone || ctx.request.body.phone;
         if (!phone || !_cfg.regx.phone.test(phone)) throw Error('手机号码格式错误.');
 
@@ -59,14 +59,58 @@ _rotr.apis.regByPhone = function() {
 };
 
 
+
+/**
+ * 通过ukey获取uid，供其他模块服务器调用，比getMyinfo更快速，不读取用户信息
+ * 支持url的ukey参数或post数据的ukey,或者cookie
+ * @returns {int} 用户id
+ */
+_rotr.apis.getUidByUkey = function () {
+    var ctx = this;
+
+    var co = $co(function* () {
+
+        var ukey = ctx.query.ukey || ctx.request.body.ukey;
+        if (!ukey) ukey = ctx.cookies.get('m_ukey');
+        if (!ukey || !_cfg.regx.ukey.test(ukey)) throw Error('ukey不能为空.');
+
+        //登陆情况，读取用户id
+        var mpkey = _rds.k.map_ukey2uid;
+        var uid = yield _ctnu([_rds.cli, 'hget'], _rds.k.map_ukey2uid, ukey);
+
+        //未登录情况,清除ukey并返回错误
+        if (!uid) {
+            ukey = undefined;
+            ctx.cookies.set('m_ukey', ukey, {
+                httpOnly: true,
+                expires: new Date((new Date()).getTime() + _cfg.dur.browserUkey),
+            });
+            throw Error('错误或无效的登录信息，请您手工登陆或注册.')
+        }
+
+        //返回uid
+        var dat = {
+            uid: uid
+        };
+
+        //返回数据
+        ctx.body = __newMsg(1, 'ok', dat);
+        return ctx;
+    });
+    return co;
+}
+
+
+
+
 /**
  * 获取用户自己信息的接口，可以用来检测是否已经登陆,根据cookie里面的m_ukey判断
  * @returns {usr} 用户基础信息对象{id:12,phone:...,...}
  */
-_rotr.apis.getMyInfo = function() {
+_rotr.apis.getMyInfo = function () {
     var ctx = this;
 
-    var co = $co(function * () {
+    var co = $co(function* () {
         var msg;
 
         //检测是否存在账号ukey，
@@ -104,10 +148,10 @@ _rotr.apis.getMyInfo = function() {
  * 保存用户自己信息的接口,根据cookie里面的m_ukey判断
  * @returns {null}
  */
-_rotr.apis.saveProfile = function() {
+_rotr.apis.saveProfile = function () {
     var ctx = this;
 
-    var co = $co(function * () {
+    var co = $co(function* () {
         var msg;
 
         //检测是否存在账号ukey，
@@ -166,10 +210,10 @@ _rotr.apis.saveProfile = function() {
  * @returns {usrObj} 用户基本信息
  */
 
-_rotr.apis.loginByPhone = function() {
+_rotr.apis.loginByPhone = function () {
     var ctx = this;
 
-    var co = $co(function * () {
+    var co = $co(function* () {
         var phone = ctx.query.phone || ctx.request.body.phone;
         if (!phone || !_cfg.regx.phone.test(phone)) throw Error('手机号码格式错误.');
 
@@ -212,8 +256,8 @@ _rotr.apis.loginByPhone = function() {
  * @returns {usrObj} 用户数据对象
  */
 
-_account.getUsrInfoCo = function(uid) {
-    var co = $co(function * () {
+_account.getUsrInfoCo = function (uid) {
+    var co = $co(function* () {
         var res;
         var dbusr = yield _ctnu([_rds.cli, 'hgetall'], _rds.k.usr(uid));
         if (!dbusr) throw Error('获取用户数据信息失败.');
@@ -239,10 +283,10 @@ _account.getUsrInfoCo = function(uid) {
  * 注销账号，只是把浏览器的m_ukey清空
  * @returns {null}
  */
-_rotr.apis.loginOut = function() {
+_rotr.apis.loginOut = function () {
     var ctx = this;
 
-    var co = $co(function * () {
+    var co = $co(function* () {
         var msg;
 
         ctx.cookies.set('m_ukey', undefined, {
@@ -265,10 +309,10 @@ _rotr.apis.loginOut = function() {
  * @returns {null} null
  */
 
-_rotr.apis.getPhoneRegCode = function() {
+_rotr.apis.getPhoneRegCode = function () {
     var ctx = this;
 
-    var co = $co(function * () {
+    var co = $co(function* () {
         var phone = ctx.query.phone || ctx.request.body.phone;
         if (!phone || !_cfg.regx.phone.test(phone)) throw Error('手机号码格式错误.');
 
@@ -301,10 +345,10 @@ _rotr.apis.getPhoneRegCode = function() {
  * @returns {null} null
  */
 
-_rotr.apis.getPhoneRstCode = function() {
+_rotr.apis.getPhoneRstCode = function () {
     var ctx = this;
 
-    var co = $co(function * () {
+    var co = $co(function* () {
         var phone = ctx.query.phone || ctx.request.body.phone;
         if (!phone || !_cfg.regx.phone.test(phone)) throw Error('手机号码格式错误.');
 
@@ -335,10 +379,10 @@ _rotr.apis.getPhoneRstCode = function() {
  * 重置密码，使用手机号码验证码重置,成功并自动登陆
  * @returns {null} 无，前端可单独请求getMyInfo接口获取信息
  */
-_rotr.apis.rstPwByPhone = function() {
+_rotr.apis.rstPwByPhone = function () {
     var ctx = this;
 
-    var co = $co(function * () {
+    var co = $co(function* () {
         var phone = ctx.query.phone || ctx.request.body.phone;
         if (!phone || !_cfg.regx.phone.test(phone)) throw Error('手机号码格式错误.');
 
@@ -385,8 +429,8 @@ _rotr.apis.rstPwByPhone = function() {
  * @returns {string} 六位验证码
  */
 
-_account.sendPhoneCodeCo = function(phone) {
-    var co = $co(function * () {
+_account.sendPhoneCodeCo = function (phone) {
+    var co = $co(function* () {
         //生成认证码
         var code = Math.floor(Math.random() * 1000000);
 
