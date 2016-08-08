@@ -71,6 +71,7 @@ _rotr.apis.getUidByUkey = function () {
     var co = $co(function* () {
 
         var ukey = ctx.query.ukey || ctx.request.body.ukey;
+
         if (!ukey) ukey = ctx.cookies.get('m_ukey');
         if (!ukey || !_cfg.regx.ukey.test(ukey)) throw Error('ukey不能为空.');
 

@@ -172,7 +172,7 @@ function httpReqPrms(options, bodydata) {
         });
 
         if (bodydata) {
-            req.write(bodydata);
+            req.write(JSON.stringify(bodydata));
         };
 
         req.end();
