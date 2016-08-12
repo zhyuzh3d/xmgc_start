@@ -6,12 +6,39 @@ if (!_xmgc) {
 };
 
 (function() {
+
+
+    //先检查是否登陆，没有登陆的话直接跳往登陆注册页面
+    _xmgc.chkLogin = function() {
+        var api = 'http://m.xmgc360.com/start/api/getMyInfo';
+        var dat = {}
+
+        $.post(api, dat, function(res) {
+            console.log('POST', api, dat, res);
+            if (res.code == 1) {
+                //已经登陆，把数据填充到用户
+                _xmgc.myUsrInfo = res.data;
+                _xmgc.hasLogin = true;
+            } else {
+                //没有登陆，跳转到登录页，把当前页地址作为参数传递（因为可能是单独调用接口注销的）
+                //如果当前页面已经是登录页或注册页就不要跳转了
+                var isloginpage = (location.href.indexOf('http://m.xmgc360.com/start/web/account/?page=acc_login') == 0);
+                var isregpage = (location.href.indexOf('http://m.xmgc360.com/start/web/account/?page=acc_register') == 0);
+                if (!isloginpage && !isregpage) {
+                    location.href = 'http://m.xmgc360.com/start/web/account/?page=acc_login&okUrl=' + encodeURI(location.href);
+                };
+            };
+        });
+    };
+    _xmgc.chkLogin();
+
+
     //底部导航
     var botbar = $('<div id="botnavbar" class="navbar navbar-default navbar-fixed-bottom nav nav-tabs xmgcNavBar col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 hidden-md hidden-lg botnavbar" style="height:6rem;z-index:10;padding:0;box-shadow:0 0 2rem #CCC"></div>');
     var botbtns = botbar.btns = $('<div class="nav nav-pills" style="height:100%"></div>').appendTo(botbar);
 
     //顶部导航
-    var topbar = $('<div id="topnavbar" class="navbar navbar-default nav nav-tabs navbar-fixed-top xmgcNavBar visible-md visible-lg topnavbar" style="height:3rem;z-index:90;padding:0;box-shadow:0 0 2rem #AAA;margin-bottom:0";></div>');
+    var topbar = $('<div id="topnavbar" class="navbar navbar-default nav nav-tabs navbar-fixed-top xmgcNavBar visible-md visible-lg topnavbar" style="height:48px;min-height:48px;z-index:90;padding:0;box-shadow:0 0 2rem #AAA;margin-bottom:0";></div>');
     var topbtns = topbar.btns = $('<div class="nav nav-pills" style="height:100%"></div>').appendTo(topbar);
 
 
@@ -49,7 +76,7 @@ if (!_xmgc) {
         var mod = navModules[attr];
         //从当前url判断是否激活
         var onact = false;
-        if (location.href.indexOf('http://m.xmgc360.com/' + mod.path) != -1) {
+        if (location.href.indexOf('http://m.xmgc360.com/' + mod.path) == 0) {
             mod.act = true;
         };
         if (location.href == 'http://m.xmgc360.com/' && attr == 'welcome') {
@@ -76,7 +103,7 @@ if (!_xmgc) {
         };
 
         //向顶部导航添加按钮
-        topbtns[attr] = $('<li style="text-align:center;margin:0;border-right:1px solid #DDD;height:100%;overflow-y:hidden;border:none;display:flex"><a style="height:4rem;border-radius:0;padding:1.2rem 2rem;" href="http://m.xmgc360.com/' + mod.path + '">' + '<span class="' + mod.icon + '" style="font-size:1.5rem;margin-right:0.5rem"></span><span style="font-size:1.4rem">' + mod.name + '</span></a></li>').appendTo(topbtns);
+        topbtns[attr] = $('<li style="text-align:center;margin:0;border-right:1px solid #DDD;height:100%;overflow-y:hidden;border:none;display:flex"><a style="height:48px;border-radius:0;padding:1.2rem 2rem;" href="http://m.xmgc360.com/' + mod.path + '">' + '<span class="' + mod.icon + '" style="font-size:1.5rem;margin-right:0.5rem"></span><span style="font-size:1.4rem">' + mod.name + '</span></a></li>').appendTo(topbtns);
 
         if (mod.act) {
             topbtns[attr].attr('class', 'active');

@@ -14,6 +14,7 @@
 
         _fns.getCtrlrAgs($scope, $element);
 
+
         $scope.user = {};
 
         //需要载入的内容，仅限延迟使用，即时使用的需要加入index.html
@@ -43,16 +44,7 @@
                     })
                 } else {
                     //还没登陆，弹窗返回上一页或者登录页
-                    var confirm = $mdDialog.confirm()
-                        .title('您还没登陆，需要为您跳转到登录页吗?')
-                        .textContent('必须登陆后才能修改资料.')
-                        .ok('立即登陆')
-                        .cancel('返回');
-                    $mdDialog.show(confirm).then(function(result) {
-                        $scope.goPage('acc_login');
-                    }, function() {
-                        window.location.href = document.referrer;
-                    });
+                    $scope.goPage('acc_login');
                     $scope.hasLogin = false;
                 };
             });
@@ -73,7 +65,7 @@
                         $mdToast.simple()
                         .textContent('注销成功！')
                         .position('top right')
-                        .hideDelay(3000)
+                        .hideDelay(500)
                     ).then(function(result) {
                         $scope.goPage('acc_login');
                     });
@@ -101,13 +93,19 @@
             $.post(api, dat, function(res) {
                 console.log('POST', api, dat, res);
                 if (res.code == 1) {
-                    //如果保存成功，提示
+                    //如果保存成功，提示然后返回okUrl或者back
                     $mdToast.show(
                         $mdToast.simple()
                         .textContent('保存成功！')
                         .position('top right')
-                        .hideDelay(3000)
-                    );
+                        .hideDelay(500)
+                    ).then(function(result) {
+                        if ($scope.args.okUrl) {
+                            window.location.href = encodeURI($scope.args.okUrl);
+                        } else {
+                            window.location.href = document.referrer;
+                        };
+                    });
                 } else {
                     //如果保存失败，提示
                     $mdToast.show(
@@ -118,6 +116,16 @@
                     );
                 }
             });
+        };
+
+        //跳转到修改密码页面，传递okUrl过去
+        $scope.gotoChangePw = function() {
+            if ($scope.args.okUrl) {
+                var gourl = _cfg.homePath + '?page=acc_changePw&okUrl=' + encodeURI($scope.args.okUrl)
+                window.location.href = gourl;
+            } else {
+                $scope.goPage('acc_change');
+            };
         };
 
 

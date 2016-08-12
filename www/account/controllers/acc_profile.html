@@ -65,10 +65,10 @@
                     <input name="icon" ng-model="user.icon" ng-pattern="/^fa-[\w-]{1,32}$/" />
                     <div class="hint">fontawesome图标,如fa-leaf,其他将不显示</div>
                 </md-input-container>
-                <md-button md-no-ink class="md-primary" ng-click='goPage("acc_changePw")'>修改密码</md-button>
+                <md-button md-no-ink class="md-primary" ng-click='gotoChangePw()'>修改密码</md-button>
 
                 <div style="margin-top:2rem">
-                    <md-button class="md-raised md-accent btn-lg col-xs-6" ng-click='saveProfile()'>保存</md-button>
+                    <md-button class="md-raised md-accent btn-lg col-xs-6" ng-click='saveProfile()'>保存并返回</md-button>
                     <md-button class="md-raised md-default btn-lg" ng-click='cancel()'>取消</md-button>
                 </div>
             </md-content>

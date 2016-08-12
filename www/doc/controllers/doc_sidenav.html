@@ -15,19 +15,23 @@
 
         <md-list layout='column' flex='grow' style='padding:0;width:100%' layout-align='space-between start'>
             <div flex='grow' style="width:100%">
-                <md-menu-item style='width:100%' ng-repeat="item in menus" ng-click='alert($root.lastCtrlr);$root.gotoCtrlr(item.ctrlr);$root.tagLeftMenu()' >
+                <md-menu-item style='width:100%' ng-repeat="item in menus" ng-click='alert($root.lastCtrlr);$root.gotoCtrlr(item.ctrlr);$root.tagLeftMenu()'>
                     <md-button ng-class="{true:'md-primary',false:''}[$root.lastCtrlr==item.ctrlr]" aria-label='menu'>
-                        <span ng-class="item.icon" style="margin-right:1rem"></span>
-                        <span ng-bind='item.name' style="font-size:1.3rem"></span>
+                        <p>
+                            <span ng-class="item.icon" style="margin-right:1rem"></span>
+                            <span ng-bind='item.name' style="font-size:1.3rem"></span>
+                        </p>
                     </md-button>
                 </md-menu-item>
             </div>
             <div flex='initial' style="width:100%" hide-md>
                 <md-divider></md-divider>
-                <md-menu-item style='width:100%'  ng-href='/' aria-label='backhome'>
+                <md-menu-item style='width:100%' ng-href='/' aria-label='backhome'>
                     <md-button ng-click="ctrl.redial($event)">
-                        <span class='fa fa-home' style="margin-right:1rem"></span>
-                        <span  style="font-size:1.3rem">返回项目工场首页</span>
+                        <p>
+                            <span class='fa fa-home' style="margin-right:1rem"></span>
+                            <span style="font-size:1.3rem">返回项目工场首页</span>
+                        </p>
                     </md-button>
                 </md-menu-item>
             </div>

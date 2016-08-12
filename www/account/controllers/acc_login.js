@@ -1,4 +1,7 @@
-//顶部导航控制器
+/*登陆页面控制器
+支持okUrl参数
+*/
+
 (function() {
     var ctrlrName = 'acc_login';
 

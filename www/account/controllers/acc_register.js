@@ -134,9 +134,10 @@
             $.post(api, dat, function(res) {
                 console.log('POST', api, dat, res);
                 if (res.code == 1) {
-                    //如果登陆成功，根据args进行跳转
+                    //如注册成功，跳转到profile页面，并传递okUrl给个人设置页面以便跳转回去
                     if ($scope.args.okUrl) {
-                        window.location.href = encodeURI($scope.args.okUrl);
+                        var gourl = _cfg.homePath + '?page=acc_profile&okUrl=' + encodeURI($scope.args.okUrl)
+                        window.location.href = gourl;
                     } else {
                         $scope.goPage('acc_profile');
                     }
@@ -175,6 +176,6 @@
         }
 
         //end
-        console.log(ctrlrName + '.js loading...')
+        console.log(ctrlrName + '.js loading...');
     };
 })();
