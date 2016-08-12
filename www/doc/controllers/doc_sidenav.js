@@ -35,9 +35,13 @@
 
         $(window).ready(function() {
             setTimeout(function() {
-                console.log('>>>', $rootScope.lastCtrlr);
+                //console.log('>>>', $rootScope.lastCtrlr);
             },1000)
         });
+
+        $scope.goHome=function(){
+           window.location.href='http://m.xmgc360.com';
+        };
 
         $scope.name = thisName;
     }
