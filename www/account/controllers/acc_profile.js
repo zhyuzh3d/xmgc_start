@@ -124,10 +124,9 @@
                 var gourl = _cfg.homePath + '?page=acc_changePw&okUrl=' + encodeURI($scope.args.okUrl)
                 window.location.href = gourl;
             } else {
-                $scope.goPage('acc_change');
+                $scope.goPage('acc_changePw');
             };
         };
-
 
         //取消注册
         $scope.cancel = function() {

@@ -86,7 +86,7 @@ if (!_xmgc) {
 
 
 
-    //    顶部导航栏的LOGO
+    //顶部导航栏的LOGO
     topbtns['brand'] = $('<li style="text-align:center;margin:0;border-right:1px solid #DDD;height:100%;overflow-y:hidden;border:none;"><a style="height:4rem;border-radius:0;padding:0.9rem 2rem;" href="http://m.xmgc360.com/"><img src="http://www.xmgc360.com//_imgs/xmgcm.png" style="width: 7rem;margin-top:-1rem;"></img></a></li>').appendTo(topbtns);
 
     //向底部和顶部导航栏添加按钮

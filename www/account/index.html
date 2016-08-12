@@ -32,17 +32,40 @@
 </head>
 
 <body>
-    <!--    _xmgc通用头部-->
-    <script src="//m.xmgc360.com/start/web/js/_xmgc.js"></script>
-    <div id='appBox' class='container-fluid'>
-        <!--    页面内容-->
-        <div id='curPage' ng-include='$root.curPageUrl'>...</div>
+    <div layout='column'>
+        <!--        顶部导航栏自动占位-->
+        <div style='display:flex'>
+            <div class='visible-md visible-lg' style='height:49px;'></div>
+        </div>
+        <div id='appBox' class='container-fluid'>
+            <!--    页面内容-->
+            <div id='curPage' ng-include='$root.curPageUrl'>...</div>
 
-        <!--    页脚内容-->
+            <!--    页脚内容-->
+            <div class="container" style="margin-top:5rem;margin-bottom:10rem">
+                <small class="pull-right" style="color:#AAA">contributor is zhyuzh | QQ:286052520</small>
+            </div>
+        </div>
+    </div>
+
+
+    <!--脚本文件-->
+    <script src="//m.xmgc360.com/start/web/js/_xmgc.js"></script>
+
+
+
+
+
+
+
+    <!--    _xmgc通用头部
+    <div id='appBox' class='container-fluid'>
+        <div id='curPage' ng-include='$root.curPageUrl'>...</div>
         <div class="container" style="margin-top:5rem;margin-bottom:10rem">
             <small class="pull-right" style="color:#AAA">contributor is zhyuzh | QQ:286052520</small>
         </div>
     </div>
+    -->
 </body>
 
 </html>
