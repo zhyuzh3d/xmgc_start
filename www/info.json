@@ -100,10 +100,10 @@
         "desc": "通过ukey获取uid，供其他模块服务器调用，比getMyinfo更快速，不读取用户信息；支持url的ukey参数或post数据的ukey,或者cookie",
         "method": ["POST", "GET"],
         "reqDat": {
-            "ukey": "用户身份密匙",
+            "ukey": "用户身份密匙"
         },
         "respDat":{
-            "uid": "用户id",
+            "uid": "用户id"
         }
     }]
 }

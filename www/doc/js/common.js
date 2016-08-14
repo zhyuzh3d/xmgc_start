@@ -172,6 +172,15 @@ if (!_xmgc) var _xmgc = {};
         return res;
     };
 
+    /*扩展JSON.safeParse*/
+    JSON.safeParse = JSON.sparse = function(str) {
+        try {
+            return JSON.parse(str);
+        } catch (err) {
+            return undefined;
+        };
+    };
+
 
     /*扩展$,获取父层的参数
     控制器用来获取由页面传来的参数，这些值都设定在模版父层<div ng-include='aa' name='jack'>，得到{ng-include:'aa',name:'jack'}
