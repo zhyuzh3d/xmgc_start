@@ -34,7 +34,17 @@ function * apihandler(next) {
     };
 
     if (apifn && apifn.constructor == Function) {
-        yield apifn.call(ctx, next).then(null, function(err) {
+        yield apifn.call(ctx, next).then(function() {
+
+            //所有接口都支持JSONP,限定xx.x.xmgc360.com域名
+            var jsonpCallback = ctx.query.callback || ctx.request.body.callback;
+            if (jsonpCallback && ctx.body) {
+                if (_cfg.regx.crossDomains.test(ctx.hostname)) {
+                    ctx.body = ctx.query.callback + '(' + JSON.stringify(ctx.body) + ')';
+                };
+            };
+
+        }, function(err) {
             ctx.body = __newMsg(__errCode.APIERR, [err.message, 'API proc failed:' + apinm + '.']);
             __errhdlr(err);
         });

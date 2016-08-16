@@ -197,3 +197,26 @@ if (!_xmgc) {
         _xmgc.addNavBar(_xmgc.useNavBar);
     });
 })();
+
+
+
+
+//ceshi
+//测试
+$.get("http://m.xmgc360.com/start/api/getMyInfo",function(res){
+   console.log('>>>JSONPX', res);
+},'jsonp');
+
+/*
+$.ajax({
+    type: "get",
+    url: "http://m.xmgc360.com/start/api/getMyInfo",
+    dataType: "jsonp",
+    success: function(json) {
+        console.log('>>>JSONPX', json);
+    },
+    error: function() {
+        console.log('>>>JSONPX failed');
+    }
+});
+*/
