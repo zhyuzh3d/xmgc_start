@@ -28,9 +28,10 @@ if (!_xmgc) {
                     location.href = 'http://m.xmgc360.com/start/web/account/?page=acc_login&okUrl=' + encodeURI(location.href);
                 };
             };
-        });
+        },'jsonp');
     };
     _xmgc.chkLogin();
+
 
 
     //底部导航
