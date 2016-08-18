@@ -11,8 +11,9 @@ if (!_xmgc) {
     //先检查是否登陆，没有登陆的话直接跳往登陆注册页面
     _xmgc.chkLogin = function() {
         var api = 'http://m.xmgc360.com/start/api/getMyInfo';
-        var dat = {}
+        var dat = {};
 
+        console.log('>>>>getMyInfo>>');
         $.post(api, dat, function(res) {
             console.log('POST', api, dat, res);
             if (res.code == 1) {

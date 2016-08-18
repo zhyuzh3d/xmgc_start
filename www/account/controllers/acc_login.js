@@ -96,7 +96,7 @@
                 if (res.code == 1) {
                     //如果登陆成功，根据args进行跳转
                     if ($scope.args.okUrl) {
-                        window.location.href = encodeURI($scope.args.okUrl);
+                        window.location.href = $scope.args.okUrl;
                     } else {
                         window.location.href = document.referrer;
                     }

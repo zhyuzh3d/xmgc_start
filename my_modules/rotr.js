@@ -35,17 +35,13 @@ function * apihandler(next) {
 
     if (apifn && apifn.constructor == Function) {
         yield apifn.call(ctx, next).then(function() {
-
-            //所有接口都支持JSONP,限定xx.x.xmgc360.com域名
-            var jsonpCallback = ctx.query.callback || ctx.request.body.callback;
-            if (jsonpCallback && ctx.body) {
-                if (_cfg.regx.crossDomains.test(ctx.hostname)) {
-                    ctx.body = ctx.query.callback + '(' + JSON.stringify(ctx.body) + ')';
-                };
-            };
+            procForJsonp(ctx);
 
         }, function(err) {
             ctx.body = __newMsg(__errCode.APIERR, [err.message, 'API proc failed:' + apinm + '.']);
+
+            procForJsonp(ctx);
+
             __errhdlr(err);
         });
     } else {
@@ -54,6 +50,20 @@ function * apihandler(next) {
 
     yield next;
 };
+
+/*兼容jsonp的处理程序
+所有接口都支持JSONP,限定xx.x.xmgc360.com域名
+ */
+function procForJsonp(ctx) {
+    var jsonpCallback = ctx.query.callback || ctx.request.body.callback;
+    if (jsonpCallback && ctx.body) {
+        if (_cfg.regx.crossDomains.test(ctx.hostname)) {
+            ctx.body = ctx.query.callback + '(' + JSON.stringify(ctx.body) + ')';
+        };
+    };
+};
+
+
 
 /*测试接口,返回请求的数据
  */
