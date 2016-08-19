@@ -5,6 +5,7 @@ if (!_xmgc) {
     var _xmgc = {};
 };
 
+//导航栏生成功能
 (function() {
     'use strict';
 
@@ -29,7 +30,7 @@ if (!_xmgc) {
                     location.href = 'http://m.xmgc360.com/start/web/account/?page=acc_login&okUrl=' + encodeURI(location.href);
                 };
             };
-        },'jsonp');
+        }, 'jsonp');
     };
     _xmgc.chkLogin();
 
@@ -199,7 +200,3 @@ if (!_xmgc) {
         _xmgc.addNavBar(_xmgc.useNavBar);
     });
 })();
-
-
-
-
