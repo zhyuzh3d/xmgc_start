@@ -3,6 +3,8 @@
 */
 
 (function() {
+    'use strict';
+
     var ctrlrName = 'acc_profile';
 
     _app.controller(ctrlrName, fn);

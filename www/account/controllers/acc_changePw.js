@@ -3,6 +3,8 @@
 */
 
 (function() {
+    'use strict';
+
     var ctrlrName = 'acc_changePw';
 
     _app.controller(ctrlrName, fn);

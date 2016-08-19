@@ -3,6 +3,8 @@
 */
 
 (function() {
+    'use strict';
+
     var ctrlrName = 'acc_login';
 
     angular.module('app').controller(ctrlrName, fn);

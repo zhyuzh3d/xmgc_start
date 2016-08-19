@@ -65,7 +65,7 @@ var _xdat = {}; //共享变量
         plupload: {
             js: '//cdn.bootcss.com/plupload/2.1.9/moxie.min.js',
             js2: '//cdn.bootcss.com/plupload/2.1.9/plupload.dev.js',
-            js2: '//cdn.bootcss.com/plupload/2.1.9/plupload.full.min.js',
+            js3: '//cdn.bootcss.com/plupload/2.1.9/plupload.full.min.js',
         },
         qiniu: {
             js: '//cdn.bootcss.com/qiniu-js/1.0.15-beta/qiniu.min.js',
