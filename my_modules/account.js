@@ -147,17 +147,6 @@ _rotr.apis.getMyInfo = function() {
         //对用户的phone字段做隐藏134******37
         dat.phone = dat.phone.substr(0, 3) + '******' + dat.phone.substr(dat.phone.length - 2);
 
-        //仅对已知域名支持JSONP跨域
-        //        var jsonpCallback = ctx.query.callback || ctx.request.body.callback;
-        //        if (jsonpCallback) {
-        //            if (_cfg.regx.crossDomains.test(ctx.hostname)) {
-        //                ctx.body = ctx.query.callback + '(' + JSON.stringify(dat) + ')';
-        //            };
-        //        } else {
-        //            //返回数据
-        //            ctx.body = __newMsg(1, 'ok', dat);
-        //        };
-
         ctx.body = __newMsg(1, 'ok', dat);
         return ctx;
     });
@@ -212,6 +201,11 @@ _rotr.apis.saveProfile = function() {
         var icon = ctx.query.icon || ctx.request.body.icon;
         if (icon && _cfg.regx.icon.test(icon)) {
             mu.hset(usrkey, 'icon', icon);
+        };
+
+        var avatar = ctx.query.avatar || ctx.request.body.avatar;
+        if (icon && _cfg.regx.avatar.test(avatar)) {
+            mu.hset(usrkey, 'avatar', avatar);
         };
 
         var res = yield _ctnu([mu, 'exec']);
@@ -295,6 +289,7 @@ _account.getUsrInfoCo = function(uid) {
             nick: dbusr.nick,
             color: dbusr.color,
             icon: dbusr.icon,
+            avatar:dbusr.avatar
         }
 
         return res;

@@ -17,9 +17,9 @@ var $crypto = global.$crypto = require('crypto');
 var $mailer = global.$mailer = require('nodemailer');
 var $redis = global.$redis = require('redis');
 var $uuid = global.$uuid = require('node-uuid');
+//var $qiniu = global.$qiniu = require('qiniu');
 //var $gzip = global.$gzip = require('koa-gzip');
 //var $sktio = global.$sktio = require('socket.io');
-//var $qiniu = global.$qiniu = require('qiniu');
 
 //自定义库引入
 global._ctnu = require('./my_modules/ctnu.js');
@@ -31,7 +31,7 @@ global._rotr = require('./my_modules/rotr.js');
 global._rds = require('./my_modules/rds.js');
 
 global._account = require('./my_modules/account.js');
-//global._qn = require('./mymodules/qn.js');
+//global._qn = require('./my_modules/qn.js');
 
 //服务器对象
 var koaSvr = _app.koaSvr = $koa();

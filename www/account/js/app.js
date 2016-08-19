@@ -1,9 +1,9 @@
 //每个页面都引入这个文件，提供所有的全局设置和文件引入
 
-var _app = {}; //最高全局变量，angular
-var _cfg = {}; //最高全局变量，功用设置
-var _fns = {}; //最高全局变量，公用函数
-var _xdat = {}; //共享变量
+if (!_app) var _app = {}; //最高全局变量，angular
+if (!_cfg) var _cfg = {}; //最高全局变量，功用设置
+if (!_fns) var _fns = {}; //最高全局变量，公用函数
+if (!_xdat) var _xdat = {}; //共享变量
 
 (function _main() {
     'use strict';
@@ -133,7 +133,7 @@ var _xdat = {}; //共享变量
         _xdat = $rootScope.xdat = {};
 
         //切换页面的函数
-        $rootScope.changePage = function (pname, args) {
+        $rootScope.changePage = function(pname, args) {
             //传递参数
             if (args) {
                 if (!$rootScope.xdat[pname]) $rootScope.xdat[pname] = {};
@@ -155,8 +155,8 @@ var _xdat = {}; //共享变量
 
     //显示为html样式
     _app.filter('toTrustHtml', ['$sce',
-        function ($sce) {
-            return function (text) {
+        function($sce) {
+            return function(text) {
                 return $sce.trustAsHtml(text);
             }
         }
@@ -165,7 +165,7 @@ var _xdat = {}; //共享变量
 
     /*获取地址栏参数
      */
-    _fns.getUrlParam = function (name) {
+    _fns.getUrlParam = function(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
         var r = window.location.search.substr(1).match(reg);
         if (r != null) return unescape(r[2]);
@@ -174,7 +174,7 @@ var _xdat = {}; //共享变量
 
     /*获取地址栏全部参数
      */
-    _fns.getUrlParams = function (url) {
+    _fns.getUrlParams = function(url) {
         var res;
         url = (url) ? url : window.location.href;
         url = String(url);
@@ -182,7 +182,7 @@ var _xdat = {}; //共享变量
         if (parts.length > 1) {
             var arr = parts[1].split('&');
             var args = {};
-            arr.forEach(function (seg, i) {
+            arr.forEach(function(seg, i) {
                 var segarr = seg.split('=');
                 if (segarr.length > 1) {
                     args[segarr[0]] = segarr[1];
@@ -196,13 +196,13 @@ var _xdat = {}; //共享变量
 
     /*获取路由页面，用于换页
      */
-    _fns.getCtrlr = function (ctrlrname) {
+    _fns.getCtrlr = function(ctrlrname) {
         var path = './controllers/' + ctrlrname + '.html';
         return path;
     };
 
     /*自动载入控制器对应的js*/
-    _fns.addCtrlrJs = function (ctrlrname) {
+    _fns.addCtrlrJs = function(ctrlrname) {
         var all_js = document.getElementsByTagName("script");
         var cur_js = $(all_js[all_js.length - 1]);
 
@@ -212,7 +212,7 @@ var _xdat = {}; //共享变量
 
     /*向head添加需要初始化的库，参照_cfg.libs
      */
-    _fns.addLib = function (libstr) {
+    _fns.addLib = function(libstr) {
         var lib = _cfg.libs[libstr];
         if (libstr && lib && !lib.loaded) {
             for (var attr in lib) {
@@ -245,11 +245,12 @@ var _xdat = {}; //共享变量
 
     /*重新应用scope
      */
-    _fns.applyScope = function (scp) {
-        if (scp && scp.$root && scp.$root.$$phase != '$apply' && scp.$root.$$phase != '$digest') {
-            scp.$apply();
+    _fns.applyScope = function(scope, fn) {
+        if (scope && scope.$root && scope.$root.$$phase != '$apply' && scope.$root.$$phase != '$digest') {
+            scope.$apply(fn);
         };
     };
+
 
     /*创建唯一的id
      */
@@ -265,7 +266,7 @@ var _xdat = {}; //共享变量
     需要具有scope.ctrlrName属性
     写入到$scope.args
      */
-    _fns.getCtrlrAgs = function (scope, element) {
+    _fns.getCtrlrAgs = function(scope, element) {
         var res;
         if (scope) {
             if (!scope.args) scope.args = {};
@@ -297,7 +298,7 @@ var _xdat = {}; //共享变量
 
 
     //最基本的上传按钮
-    _fns.uploadFile = function (evt, callback) {
+    _fns.uploadFile = function(evt, callback) {
         var btnjo = $(evt.target);
 
         //创建formdata数据
@@ -309,24 +310,24 @@ var _xdat = {}; //共享变量
 
 
         //给file input添加监听
-        filejo.bind('change', function () {
+        filejo.bind('change', function() {
             var fileobj = filejo.get(0).files[0];
             console.log('>>>onchange', fileobj);
 
             $.get('http://www.10knet.com/api/getUploadToken',
-                function (res) {
+                function(res) {
                     _fns.uploadFileQn(fileobj, res.uptoken,
-                        function (evt) {
+                        function(evt) {
                             console.log('>>>>loading....', evt);
                             if (evt.lengthComputable) {
                                 var percentComplete = evt.loaded / evt.total;
                                 console.log('>>>>loading', percentComplete);
                             };
                         },
-                        function (res) {
+                        function(res) {
                             console.log('>>>>loadok', res);
                         },
-                        function (err) {
+                        function(err) {
                             console.log('>>>>loaderr', res);
                         });
                 });
@@ -340,7 +341,7 @@ var _xdat = {}; //共享变量
     /*上传到七牛存储的函数
     ingfn(evt)传输中的函数,okfn(evt)完成后的函数
     */
-    _fns.uploadFileQn = function (fileobj, token, ingfn, okfn, errfn) {
+    _fns.uploadFileQn = function(fileobj, token, ingfn, okfn, errfn) {
         //准备fromdata
         var fdata = new FormData();
         fdata.append('file', fileobj);
@@ -353,19 +354,19 @@ var _xdat = {}; //共享变量
             type: 'POST',
             processData: false,
             contentType: false,
-            xhr: function () {
+            xhr: function() {
                 var xhr = $.ajaxSettings.xhr();
-                xhr.upload.addEventListener("progress", function (e) {
+                xhr.upload.addEventListener("progress", function(e) {
                     console.log('proc', e);
                 }, false);
                 return xhr;
             },
-            progress: function (e) {
+            progress: function(e) {
                 if (!e.lengthComputable) {
                     return;
                 }
             },
-            success: function (result) {
+            success: function(result) {
                 //把七牛的返回结果专为标准格式
                 result['success'] = true;
                 result['file_path'] = 'http://pubfiles.10knet.com/' + result.key;
@@ -394,7 +395,7 @@ var _xdat = {}; //共享变量
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'fa fa-file-excel-o',
         'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'fa fa-file-excel-o',
     };
-    _fns.getFileIcon = function (typestr, size) {
+    _fns.getFileIcon = function(typestr, size) {
         var res = _cfg.fileIcons[typestr] || 'fa fa-file-o';
         res = 'fa ' + res;
         if (size) res += ' ' + size;

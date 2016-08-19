@@ -24,6 +24,7 @@ _cfg.regx = {
     icon: /^fa-[\w-]{1,32}$/, //fa图标值
     ukey: /^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$/, //user.ukey的格式
     crossDomains:/^\w*\.?\w*\.?xmgc360\.com$/,//接收跨域的请求
+    avatar:/^http:\/\/[\s\S]{0,1024}$/,//用户头像，标准http格式才行
 };
 
 

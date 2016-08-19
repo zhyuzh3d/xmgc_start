@@ -42,6 +42,7 @@
                         for (var attr in res.data) {
                             $scope.user[attr] = res.data[attr];
                         };
+                        if($scope.user.avatar) $scope.user.avatarCss = 'url(' + $scope.user.avatar + '-avatarsm)';
                         $scope.hasLogin = true;
                     })
                 } else {
@@ -51,6 +52,71 @@
                 };
             });
         };
+
+        //生成avatar的样式
+        $scope.getAvatarCss = function(url) {
+            return {
+                'background': 'url(' + url + ')'
+            }
+        };
+
+
+
+        //模拟input弹窗选择文件并开始上传
+        $scope.upFile = {};
+        $scope.uploadAvatar = function(evt) {
+
+            var btnjo = $(evt.target);
+            if (btnjo.attr('id') != 'uploadBtn') btnjo = btnjo.parent();
+
+            $scope.uploadId = _fns.uploadFile2(btnjo,
+                function(f, res) {
+                    //before,
+                }, function(f, proevt) {
+                    //progress,更新进度条
+                    _fns.applyScope($scope, function() {
+                        $scope.upFile.id = f;
+                        $scope.uploading=true;
+                    });
+                }, function(f, res) {
+                    //sucess,从upFiles里面移除这个f
+                    f.url = res.url;
+
+                    //提示成功
+                    _fns.applyScope($scope, function() {
+                        $scope.user.avatar=res.file_path;
+                        $scope.user.avatarCss='url('+res.file_path+'-avatarsm)';
+                        $scope.uploading=false;
+                    });
+                    $mdToast.show(
+                        $mdToast.simple()
+                        .textContent('上传成功！')
+                        .position('top right')
+                        .hideDelay(3000)
+                    );
+                }, function(f, err) {
+                    //error,从upFiles里面移除这个f
+                    f.url = res.url;
+                    //提示成功
+                    _fns.applyScope($scope, function() {
+                        $scope.uploading=false;
+                    });
+                    $mdToast.show(
+                        $mdToast.simple()
+                        .textContent('上传失败:' + err.message)
+                        .position('top right')
+                        .hideDelay(3000)
+                    );
+                });
+        };
+
+
+
+
+
+
+
+
 
         //注销当前账号
         $scope.loginOut = function() {
@@ -83,13 +149,14 @@
             });
         };
 
-        //注册账号
+        //保存信息
         $scope.saveProfile = function() {
             var api = _cfg.apiPrefix + 'saveProfile';
             var dat = {
                 nick: $scope.user.nick,
                 color: $scope.user.color,
                 icon: $scope.user.icon,
+                avatar:$scope.user.avatar,
             };
 
             $.post(api, dat, function(res) {
