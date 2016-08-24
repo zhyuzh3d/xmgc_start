@@ -1,8 +1,8 @@
 /*每个模块都应该引入的js脚本,需要jquery和bootstrap支持
 自动创建顶部和底部元件*/
-console.log('start/_xmgc.js:loading...');
-if (!_xmgc) {
-    var _xmgc = {};
+console.log('start/_pie.js:loading...');
+if (!_pie) {
+    var _pie = {};
 };
 
 //导航栏生成功能
@@ -11,7 +11,7 @@ if (!_xmgc) {
 
 
     //先检查是否登陆，没有登陆的话直接跳往登陆注册页面
-    _xmgc.chkLogin = function() {
+    _pie.chkLogin = function() {
         var api = 'http://m.xmgc360.com/start/api/getMyInfo';
         var dat = {};
 
@@ -19,8 +19,8 @@ if (!_xmgc) {
             console.log('POST', api, dat, res);
             if (res.code == 1) {
                 //已经登陆，把数据填充到用户
-                _xmgc.myUsrInfo = res.data;
-                _xmgc.hasLogin = true;
+                _pie.myUsrInfo = res.data;
+                _pie.hasLogin = true;
             } else {
                 //没有登陆，跳转到登录页，把当前页地址作为参数传递（因为可能是单独调用接口注销的）
                 //如果当前页面已经是登录页或注册页就不要跳转了
@@ -32,7 +32,7 @@ if (!_xmgc) {
             };
         }, 'jsonp');
     };
-    _xmgc.chkLogin();
+    _pie.chkLogin();
 
 
 
@@ -121,30 +121,30 @@ if (!_xmgc) {
      * @private
      * @property bottomNavBar
      */
-    _xmgc.bottomNavBar = botbar;
-    _xmgc.topNavBar = topbar;
+    _pie.bottomNavBar = botbar;
+    _pie.topNavBar = topbar;
 
 
     /**
      * 添加底部导航栏
      * @private
      * @method addBottomNavBar
-     * @return {jqueryObj} _xmgc.bottomNavBar
+     * @return {jqueryObj} _pie.bottomNavBar
      */
-    _xmgc.addBottomNavBar = function() {
-        $('body').append(_xmgc.bottomNavBar);
-        return _xmgc.bottomNavBar;
+    _pie.addBottomNavBar = function() {
+        $('body').append(_pie.bottomNavBar);
+        return _pie.bottomNavBar;
     };
 
     /**
      * 添顶部导航栏
      * @private
      * @method addBottomNavBar
-     * @return {jqueryObj} _xmgc.bottomNavBar
+     * @return {jqueryObj} _pie.bottomNavBar
      */
-    _xmgc.addTopNavBar = function() {
-        $('body').prepend(_xmgc.topNavBar);
-        return _xmgc.topNavBar;
+    _pie.addTopNavBar = function() {
+        $('body').prepend(_pie.topNavBar);
+        return _pie.topNavBar;
     };
 
 
@@ -155,18 +155,18 @@ if (!_xmgc) {
      * @private
      * @method addNavBarStyle
      * @param {string}  clr 颜色字符串
-     * @return {jqueryObj} _xmgc.bottomNavBar
+     * @return {jqueryObj} _pie.bottomNavBar
      */
-    _xmgc.addNavBarStyle = function(clr) {
+    _pie.addNavBarStyle = function(clr) {
         if (!clr) clr = '#00bfa5';
         var stl = $('<style></style');
         stl.append('.botnavbar .nav-pills li a{color: ' + clr + ';text-decoration: none;font-family:simhei}');
         stl.append('.topnavbar .nav-pills li a{color: ' + clr + ';text-decoration: none;font-family:simhei;height:100%}');
         stl.append('.xmgcNavBar .nav-pills li.active a{color: #FFF;background-color: ' + clr + ';height:100%}');
         stl.append('.xmgcNavBar .nav-pills li .active a:hover{color: #FFF;background-color: ' + clr + ';height:100%}');
-        _xmgc.navBarStyle = stl;
-        $('body').append(_xmgc.navBarStyle);
-        return _xmgc.navBarStyle;
+        _pie.navBarStyle = stl;
+        $('body').append(_pie.navBarStyle);
+        return _pie.navBarStyle;
     };
 
     /**
@@ -176,27 +176,27 @@ if (!_xmgc) {
      * @param {Object} str='top/bottom/both'
      * @return {Array} description
      */
-    _xmgc.addNavBar = function(str) {
+    _pie.addNavBar = function(str) {
         var res = [];
-        res.push(_xmgc.addNavBarStyle());
+        res.push(_pie.addNavBarStyle());
         if (str == 'bootom' || str == 'bot') {
-            res.push(_xmgc.addBottomNavBar());
+            res.push(_pie.addBottomNavBar());
         } else if (str == 'top') {
-            res.push(_xmgc.addTopNavBar());
+            res.push(_pie.addTopNavBar());
         } else if (str == 'both') {
-            res.push(_xmgc.addBottomNavBar());
-            res.push(_xmgc.addTopNavBar());
+            res.push(_pie.addBottomNavBar());
+            res.push(_pie.addTopNavBar());
         }
     };
 
 
     //自动添加导航栏，默认添加底部
-    if (_xmgc.useNavBar == undefined) {
-        _xmgc.useNavBar = 'both';
+    if (_pie.useNavBar == undefined) {
+        _pie.useNavBar = 'both';
     };
 
 
     $(document).ready(function() {
-        _xmgc.addNavBar(_xmgc.useNavBar);
+        _pie.addNavBar(_pie.useNavBar);
     });
 })();

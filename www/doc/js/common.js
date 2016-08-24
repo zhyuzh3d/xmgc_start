@@ -5,13 +5,13 @@
 var _cfg = {}; //最高全局变量，功用设置
 var _fns = {}; //最高全局变量，公用函数
 var _xdat = {}; //共享变量
-if (!_xmgc) var _xmgc = {};
+if (!_pie) var _pie = {};
 
 (function() {
     'use strict';
 
     //初始页面,
-    _xmgc.useNavBar = 'top';
+    _pie.useNavBar = 'top';
     _cfg.startPage = 'doc_devWeb';
 
     //如果地址栏传递page参数进来，那么 autoStartPage 函数会覆盖startPage
