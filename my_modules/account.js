@@ -72,6 +72,8 @@ _rotr.apis.regByPhone = function() {
  */
 _rotr.apis.getUidByUkey = function() {
     var ctx = this;
+    ctx.enableJsonp = true;
+    ctx.crossDomains = 'all';
 
     var co = $co(function * () {
 
@@ -116,6 +118,8 @@ _rotr.apis.getUidByUkey = function() {
  */
 _rotr.apis.getMyInfo = function() {
     var ctx = this;
+    ctx.enableJsonp = true;
+    ctx.crossDomains='all';
 
     var co = $co(function * () {
         var msg;
@@ -289,7 +293,7 @@ _account.getUsrInfoCo = function(uid) {
             nick: dbusr.nick,
             color: dbusr.color,
             icon: dbusr.icon,
-            avatar:dbusr.avatar
+            avatar: dbusr.avatar
         }
 
         return res;

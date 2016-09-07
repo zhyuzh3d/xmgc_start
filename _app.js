@@ -27,6 +27,7 @@ global._cfg = require('./my_modules/cfg.js');
 global._xcfg = require('../start_xcfg.js');
 global._fns = require('./my_modules/fns.js');
 global._mdwr = require('./my_modules/mdwr.js');
+global._ndwr = require('./my_modules/ndwr.js');
 global._rotr = require('./my_modules/rotr.js');
 global._rds = require('./my_modules/rds.js');
 
@@ -69,6 +70,10 @@ koaSvr.use(_mdwr);
 /*http请求的路由控制
  */
 koaSvr.use(_rotr.routes());
+
+/*http请求结尾件
+ */
+koaSvr.use(_ndwr);
 
 //test
 
