@@ -35,6 +35,7 @@ function * apihandler(next) {
 
     if (apifn && apifn.constructor == Function) {
         yield apifn.call(ctx, next).then(function() {
+
             procForJsonp(ctx);
 
         }, function(err) {

@@ -16,7 +16,7 @@ if (!_pie) {
         var dat = {};
 
         $.post(api, dat, function(res) {
-            console.log('>>>>>>>>>>>>>get', api, dat, res);
+            console.log('POST', api, dat, res);
             if (res.code == 1) {
                 //已经登陆，把数据填充到用户
                 _pie.myUsrInfo = res.data;
@@ -31,67 +31,8 @@ if (!_pie) {
                 };
             };
         }, 'jsonp');
-
-
-        $.ajax({
-            type: "POST",
-            data: dat,
-            url: api,
-            dataType: "jsonp",
-            success: function(result) {
-                console.log('>>>>>>>>>ajax', result);
-            }
-        });
-
-        $.getJSON(api, dat, function(res) {
-            console.log('getJSON', res);
-        });
-
-
     };
     _pie.chkLogin();
-
-
-
-
-
-
-     //先检查是否登陆，没有登陆的话直接跳往登陆注册页面
-    var chkLogin2 = function () {
-        var api = 'http://m.xmgc360.com/start/api/getMyInfo';
-        var dat = {};
-
-        $.ajaxSetup({
-            async: true
-        });
-        $.post(api, dat, function (res) {
-           console.log('>>>>22222222222',res);
-        }, 'jsonp');
-    };
-    chkLogin2();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

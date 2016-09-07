@@ -73,7 +73,7 @@ _rotr.apis.regByPhone = function() {
 _rotr.apis.getUidByUkey = function() {
     var ctx = this;
     ctx.enableJsonp = true;
-    ctx.crossDomains = 'all';
+    ctx.jsonpDomains = 'all';
 
     var co = $co(function * () {
 
@@ -119,7 +119,7 @@ _rotr.apis.getUidByUkey = function() {
 _rotr.apis.getMyInfo = function() {
     var ctx = this;
     ctx.enableJsonp = true;
-    ctx.crossDomains='all';
+    ctx.jsonpDomains='all';
 
     var co = $co(function * () {
         var msg;

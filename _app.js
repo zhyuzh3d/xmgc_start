@@ -73,7 +73,7 @@ koaSvr.use(_rotr.routes());
 
 /*http请求结尾件
  */
-koaSvr.use(_ndwr);
+//koaSvr.use(_ndwr);
 
 //test
 
