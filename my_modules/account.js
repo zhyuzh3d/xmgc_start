@@ -119,7 +119,7 @@ _rotr.apis.getUidByUkey = function() {
 _rotr.apis.getMyInfo = function() {
     var ctx = this;
     ctx.enableJsonp = true;
-    ctx.jsonpDomains='all';
+    ctx.jsonpDomains = 'all';
 
     var co = $co(function * () {
         var msg;
@@ -466,7 +466,13 @@ _rotr.apis.rstPwByPhone = function() {
 _account.sendPhoneCodeCo = function(phone) {
     var co = $co(function * () {
         //生成认证码
-        var code = Math.floor(Math.random() * 1000000);
+        var code = String(Math.random()).substr(2, 6);
+        if (code.length < 6) {
+            var n = 6 - code.length;
+            for (var i = 0; i < n; i++) {
+                code += '0';
+            }
+        };
 
         //发送验证码
         var minit = _cfg.dur.phoneCode / 60;

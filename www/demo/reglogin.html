@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html style="height:100%;width:100%;overflow:hidden">
+
+<head>
+    <title>登录注册说明</title>
+
+    <meta charset="utf-8" />
+    <meta name="description" content="基于代码派base模版创建" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+    <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body style="height:100%;width:100%;overflow:auto">
+    <!----从这里开始编码---->
+    <style>
+        li {
+            height: 32px
+        }
+    </style>
+
+    <div style="text-align:left;font-size:14px;margin:24px;padding:24px;background:#A00;color:#FFF">
+        <a href='http://m.xmgc360.com/start/web/doc/?page=doc_api' style="color:#FFF"><span>务必请认真参考【文档/所有API接口】下的start模块的接口说明！ 点这里</span></a>
+    </div>
+    <hr>
+
+    <div style="text-align:left;font-size:14px;margin:24px;padding:24px;background:#DDD">
+        <div id='loginstate' style="font-size:24px;text-align:left;">正在检测登陆状态...</div>
+        <br>
+        <div style="text-align:left;font-size:14px">这里是通过前端接口检查用户登录状态的示例
+            <br>JS代码请参考本页面源码(注意'jsonp'参数)
+        </div>
+    </div>
+    <hr>
+    <div style="text-align:left;font-size:14px;margin:24px;padding:24px;background:#DDD">
+        <p>后端模块的nodejs服务器程序也可以向以下接口发起POST请求来获取当前request的用户id(只能在云端测试，不可本地测试)</p>
+        <h3>http://m.xmgc360.com/start/api/getUidByUkey</h3>
+        <p style="color:#A00">注意！这个接口仅供后端使用，因为需要发送{ukey:xxxx}数据，这个xxxx是后端从request请求的cookie里面提取的</p>
+        <p>整个处理流程是：</p>
+        <ol>
+            <li>前端用户发送任意请求request到模块服务器nodejs程序</li>
+            <li>模块服务器nodejs程序从request中提取cookie(m_ukey)</li>
+            <li>模块服务器nodejs程序把提取到的m_ukey发送http(POST)到以上getUidByUkey接口</li>
+            <li>模块服务器nodejs程序从getUidByUkey接口返回的信息中获得request用户身份uid或者未登录</li>
+            <li>模块服务器nodejs程序根据uid操作数据库(以uid为author字段写入数据，或者根据uid读取用户之前写入的数据)</li>
+            <li>模块服务器nodejs程序进行业务处理，把最终的数据返回给前端</li>
+            <li>前端JS(jquery或angular)把数据显示在页面上或进行其他逻辑操作</li>
+        </ol>
+    </div>
+    <hr>
+    <div style="text-align:left;font-size:14px;margin:24px;padding:24px;background:#DDD">
+        <p>更多内容请参照github上面xmgc_start项目mymodules/account.js和www/account文件夹内的内容</p>
+    </div>
+
+
+
+    <script>
+        function chkLogin() {
+            var api = 'http://m.xmgc360.com/start/api/getMyInfo';
+            var dat = {};
+
+            $.post(api, dat, function(res) {
+                console.log('POST', api, dat, res);
+                if (res.code == 1) {
+                    //已经登陆，把数据填充到用户
+                    $('#loginstate').html('当前用户已经登陆，用户ID是:' + res.data.id + '<br><small>请从控制台查看更多</small>');
+                } else {
+                    //如果打开下面一行代码，那么如果用户没有登陆过就会自动跳转到登陆页面
+                    //跳转登录页面之后，如果用户在那里登陆成功，会自动跳回这个页面(注意okUrl参数)。
+                    //location.href = 'http://m.xmgc360.com/start/web/account/?page=acc_login&okUrl=' + encodeURI(location.href);
+                };
+            }, 'jsonp');
+        };
+        chkLogin();
+    </script>
+
+
+
+
+
+
+
+
+
+
+    <!----到这里结束编码---->
+</body>
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="reglogin.js"></script>
+
+</html>

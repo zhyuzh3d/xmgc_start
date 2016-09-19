@@ -5,19 +5,19 @@
     "time": "2016-07-29 16:47",
     "pages": [{
         "name": "register",
-        "desc": "新用户注册页面",
+        "desc": "新用户注册页面。可将url地址作为okUrl参数传入，注册成功后跳转到这个url。如http://m.xmgc360.com/start/web/account/?page=acc_register&okUrl=http://m.xmgc360.com/qa/web/那么注册成功后将自动跳转到http://m.xmgc360.com/qa/web/",
         "url": "?page=acc_register"
     }, {
         "name": "login",
-        "desc": "用户登陆页面",
+        "desc": "用户登陆页面，可传入okUrl登陆成功后跳转,参见register说明",
         "url": "?page=acc_login"
     },{
         "name": "changePw",
-        "desc": "用户修改密码页面",
+        "desc": "用户修改密码页面，可传入okUrl修改密码成功后跳转,参见register说明",
         "url": "?page=acc_changePw"
     },{
         "name": "profile",
-        "desc": "用户修改自己信息的页面",
+        "desc": "用户修改自己信息的页面，可传入okUrl保存成功后跳转,参见register说明",
         "url": "?page=acc_profile"
     }]
 }
